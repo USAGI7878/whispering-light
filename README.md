@@ -1,48 +1,137 @@
-# ✨ Whispering Light in a Clear Winter  
-*A tiny transparent jar that holds a quiet light.*
+# Whispering Light in a Clear Winter
 
-> “透明不是空白，而是盛装光的一种方式。”
+A beautiful, interactive Christmas e-card with elegant Dior-inspired design, gentle snowfall, and relaxing lofi music. Perfect for sharing warm holiday wishes with colleagues and friends.
 
-**Whispering Light in a Clear Winter** 是一个极简、柔光、带有微小粒子动画与轻柔沙沙声的网页体验。  
-它像一只冬日的透明小瓶子，装着一点温暖的金色光线，在你触碰时轻轻发声。
+## Features
 
-专为 2025 圣诞节制作 🎄  
-Made with warmth — by Peggy.
+- **Elegant Envelope Design**: Dior-inspired luxury Christmas theme with golden accents
+- **Gentle Snowfall**: Realistic slow-falling snow animation across the entire page
+- **Interactive Particles**: Golden particle effects that activate when opening the card
+- **Lofi Christmas Music**: Relaxing background music with toggle control
+- **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
+- **Accessible**: Keyboard navigation and screen reader friendly
+- **Smooth Animations**: Beautiful transitions and micro-interactions
 
----
+## Quick Start
 
-## 🌟 Features
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/christmas-card.git
+Open the card
 
-### 🪄 Minimalist Winter Aesthetic  
-- 白色与金色的柔和冬季色调  
-- 半透明玻璃瓶轮廓  
-- 极简 UI，移动端优化  
+Simply open index.html in your web browser
 
-### ✨ Soft Golden Particle Animation  
-- 会不断缓缓飘起的微光粒子  
-- 像瓶子里静静漂浮的「光的微沙」
+Or host it on any web server
 
-### 🎧 Gentle Sand/Light Rustle Sound  
-- 用户点击后解锁轻柔的“沙沙”声  
-- WebAudio 合成，不占用音频文件  
-- 可随时 Replay
+Experience the magic
 
-### 📱 Mobile-first  
-- 100% 适配手机竖屏  
-- 轻量、单文件、无后端  
-- 可以直接放 GitHub Pages
+Click the golden seal to open the envelope
 
----
+Enjoy the animated particles and message
 
-## 🚀 Live Demo  
-你可以开一个 GitHub Pages，然后把连结写进 NFC Tag。  
-在 iPhone / Android 上都能直接打开。
+Click the music button for relaxing lofi Christmas tunes
 
-示例：  
-`https://<your-username>.github.io/whispering-light/`
+How to Use
+For Personal Use
+Customize the message in the card-content section
 
----
+Modify the sender name and year
 
-## 📦 How to Use
+Share the link with your colleagues and friends
 
-### 1. Clone or Download  
+For Developers
+The project uses vanilla HTML, CSS, and JavaScript with:
+
+Canvas API for particle effects
+
+Web Audio API for music
+
+CSS animations and gradients
+
+Modern responsive design principles
+
+Customization
+Changing the Message
+Edit the text inside the .message div in index.html:
+
+html
+<div class="message">
+  <em>"Your custom quote here"</em><br><br>
+  Your holiday message...<br><br>
+  — Your Name · 2025
+</div>
+Modifying Colors
+Update the CSS variables in the :root selector:
+
+css
+:root {
+  --dior-gold: #c4a86f;
+  --dior-deep-red: #8b0000;
+  --dior-burgundy: #722f37;
+  /* Add your custom colors */
+}
+Adjusting Snowfall
+Modify the snow parameters in the JavaScript:
+
+javascript
+const SNOWFLAKE_COUNT = 120; // Number of snowflakes
+vy: Math.random() * 0.3 + 0.1, // Falling speed
+Browser Support
+Chrome 60+
+
+Firefox 55+
+
+Safari 12+
+
+Edge 79+
+
+Note: Web Audio API requires user interaction to start playback (browser security policy)
+
+Project Structure
+text
+christmas-card/
+├── index.html          # Main HTML file
+├── README.md          # Project documentation
+└── assets/            # (Optional) Additional assets
+    ├── images/
+    └── fonts/
+Music Features
+Lofi Christmas beats with gentle drums and bells
+
+Toggle control - play/pause with visual feedback
+
+Web Audio API for smooth, synthesized music
+
+Looping playback for continuous ambiance
+
+Perfect For
+Company holiday greetings
+
+Personal Christmas wishes
+
+Virtual holiday parties
+
+Social media sharing
+
+Email newsletters
+
+Contributing
+Feel free to fork this project and create your own customized Christmas cards! Some ideas:
+
+Add different color themes
+
+Create custom animations
+
+Add more interactive elements
+
+Implement different music styles
+
+License
+This project is open source and available under the MIT License.
+
+Credits
+Created with care for the 2025 holiday season. Perfect for spreading warmth and kindness during the Christmas period.
+
+If you like this project, please give it a star on GitHub.
+
+May your holidays be filled with warmth and light.
