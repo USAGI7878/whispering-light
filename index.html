@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Whispering Light in a Clear Winter</title>
+<meta name="description" content="Whispering Light in a Clear Winter — a tiny transparent christmas jar. From Peggy · 2025" />
+<style>
+  :root{
+    --bg:#ffffff;
+    --gold-1:rgba(212,175,55,1); /* warm gold */
+    --gold-2:rgba(230,190,120,0.85);
+    --muted:#f6f6f6;
+    --text:#1b1b1b;
+    --sub:#666;
+  }
+  html,body{height:100%;}
+  body{
+    margin:0;
+    font-family: Inter, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Noto Sans", sans-serif;
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(252,250,248,1) 40%, rgba(255,250,240,1) 100%);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    box-sizing:border-box;
+  }
+
+  .card{
+    width:100%;
+    max-width:760px;
+    min-height:480px;
+    border-radius:18px;
+    box-shadow: 0 10px 30px rgba(20,20,20,0.06);
+    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7));
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:36px 30px;
+    box-sizing:border-box;
+  }
+
+  /* header */
+  .top{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    margin-bottom:6px;
+  }
+  .icon{
+    width:42px;
+    height:42px;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid rgba(212,175,55,0.18);
+    background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.1));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+  }
+  .icon svg{width:20px;height:20px;fill:none; stroke:var(--gold-1); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; opacity:0.98;}
+
+  h1{
+    font-weight:600;
+    margin:0;
+    font-size:20px;
+    letter-spacing:0.2px;
+    color: #0f1720;
+    text-align:center;
+  }
+  .subtitle{
+    margin-top:6px;
+    color:var(--sub);
+    font-size:14px;
+    text-align:center;
+    max-width:560px;
+    line-height:1.45;
+  }
+
+  .content{
+    margin-top:18px;
+    text-align:center;
+    max-width:640px;
+  }
+
+  .message{
+    margin-top:18px;
+    font-size:16px;
+    color:#222;
+    line-height:1.6;
+    padding: 18px 30px;
+    border-radius:12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+    box-shadow: 0 6px 18px rgba(20,20,20,0.03);
+  }
+
+  .sign{
+    margin-top:18px;
+    color:var(--sub);
+    font-size:13px;
+    letter-spacing:0.6px;
+  }
+
+  /* canvas area (bottle) */
+  .bottle-wrap{
+    position:relative;
+    width:100%;
+    max-width:520px;
+    margin-top:22px;
+    height:240px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  canvas{ width:100%; height:100%; display:block; }
+
+  /* footer */
+  .foot{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:18px;
+    gap:12px;
+  }
+  .foot .meta{color:var(--sub); font-size:13px;}
+  .tap{
+    margin-left:auto;
+    background:transparent;
+    border:1px solid rgba(20,20,20,0.06);
+    padding:10px 14px;
+    border-radius:12px;
+    font-size:14px;
+    cursor:pointer;
+    color:var(--text);
+    box-shadow: 0 4px 12px rgba(20,20,20,0.04);
+  }
+
+  /* overlay for first tap */
+  .overlay{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: linear-gradient(180deg, rgba(255,255,255,0.0001), rgba(255,255,255,0.0001));
+    z-index:20;
+    pointer-events:auto;
+  }
+  .overlay-inner{
+    backdrop-filter: blur(6px) saturate(1.05);
+    -webkit-backdrop-filter: blur(6px) saturate(1.05);
+    background: rgba(255,255,255,0.6);
+    border-radius:12px;
+    padding:18px 22px;
+    text-align:center;
+    box-shadow: 0 8px 24px rgba(10,10,10,0.06);
+  }
+  .overlay-inner h3{margin:0;font-size:16px;font-weight:600;color:#0f1720}
+  .overlay-inner p{margin:8px 0 0;color:var(--sub);font-size:13px}
+  .overlay-inner button{
+    margin-top:12px;
+    background:linear-gradient(90deg,var(--gold-1),var(--gold-2));
+    color:#fff;
+    border:0;
+    padding:10px 16px;
+    border-radius:10px;
+    font-size:14px;
+    cursor:pointer;
+  }
+
+  /* small responsive */
+  @media (max-width:520px){
+    .card{ padding:20px; min-height:520px; }
+    .bottle-wrap{ height:300px; }
+    h1{ font-size:18px;}
+    .message{ font-size:15px; padding:14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="card" role="main" aria-label="Whispering Light in a Clear Winter">
+    <div class="top" aria-hidden="true">
+      <div class="icon" aria-hidden="true">
+        <!-- tiny minimalist star/snowflake -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2v4M12 18v4M4.2 4.2l2.8 2.8M16.9 16.9l2.8 2.8M2 12h4M18 12h4M4.2 19.8l2.8-2.8M16.9 7.1l2.8-2.8"/>
+        </svg>
+      </div>
+      <h1>Whispering Light in a Clear Winter</h1>
+    </div>
+
+    <div class="subtitle">A tiny transparent jar that holds a soft light — a short pause for you in the noise of the day.</div>
+
+    <div class="content">
+      <div class="message">
+        <em>“透明不是空白，而是盛装光的一种方式。”</em><br><br>
+        Merry Christmas 🎄<br>
+        谢谢你这一年里一起走过忙碌与突发，那些难得的温暖也在心底发光。希望这点点光，能在你需要时轻轻提醒：你值得被温柔以待。<br><br>
+        — Peggy · 2025
+      </div>
+
+      <div class="bottle-wrap" aria-hidden="true">
+        <canvas id="particleCanvas"></canvas>
+        <!-- overlay will prompt tap to enable sound & interaction -->
+        <div class="overlay" id="overlay">
+          <div class="overlay-inner">
+            <h3>Tap to open the little jar</h3>
+            <p>触碰解锁轻微沙沙声与魔法粒子。</p>
+            <button id="startBtn">Open</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot">
+        <div class="meta">Made with a little light & a little magic</div>
+        <button class="tap" id="replayBtn" aria-label="Replay gentle sand sound">Play sound</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* ========= Particle (gold sand) system ========= */
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d',{alpha:true});
+let DPR = window.devicePixelRatio || 1;
+function fitCanvas(){
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = Math.floor(rect.width * DPR);
+  canvas.height = Math.floor(rect.height * DPR);
+  canvas.style.width = rect.width + 'px';
+  canvas.style.height = rect.height + 'px';
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+}
+fitCanvas();
+window.addEventListener('resize', () => { fitCanvas(); });
+
+/* particles that drift upward like micro sand/light */
+let particles = [];
+const MAX = 120;
+function rand(min,max){ return Math.random()*(max-min)+min; }
+
+function createParticle(x,y){
+  return {
+    x: x + rand(-40,40),
+    y: y + rand(-10,10),
+    vx: rand(-0.08,0.08),
+    vy: rand(-0.25, -0.6),
+    size: rand(0.6,2.6),
+    life: rand(2.4,6.0),
+    age:0,
+    alpha: rand(0.6,1),
+    hue: rand(38,48) // golden hue
+  };
+}
+
+function emitBatch(){
+  const w = canvas.clientWidth;
+  const h = canvas.clientHeight;
+  const baseX = w/2;
+  const baseY = h*0.75; // bottom-ish
+  for(let i=0;i<6;i++){
+    if(particles.length<MAX) particles.push(createParticle(baseX, baseY));
+  }
+}
+
+let last = performance.now();
+function update(now){
+  const dt = (now-last)/1000; last = now;
+  // occasional emission
+  if(Math.random() < 0.55 * dt * 60/60) emitBatch();
+  // update
+  for(let i=particles.length-1;i>=0;i--){
+    let p = particles[i];
+    p.age += dt;
+    p.x += p.vx * (60*dt*1.0);
+    p.y += p.vy * (60*dt*1.0) - Math.sin(p.age*1.5)*0.02;
+    p.vx *= 0.999;
+    p.alpha *= 0.999;
+    if(p.age > p.life || p.alpha < 0.03 || p.y < -10) particles.splice(i,1);
+  }
+}
+
+function draw(){
+  const w = canvas.clientWidth;
+  const h = canvas.clientHeight;
+  ctx.clearRect(0,0,w,h);
+
+  // subtle glass reflection
+  const g = ctx.createLinearGradient(0,0,0,h);
+  g.addColorStop(0,'rgba(255,255,255,0.35)');
+  g.addColorStop(1,'rgba(255,250,240,0)');
+  ctx.fillStyle = g;
+  ctx.fillRect(0,0,w,h);
+
+  // draw a faint bottle silhouette / arc to hint the jar (very subtle)
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(w*0.18,h*0.92);
+  ctx.bezierCurveTo(w*0.18,h*0.6, w*0.25, h*0.32, w*0.5, h*0.28);
+  ctx.bezierCurveTo(w*0.75,h*0.32, w*0.82, h*0.6, w*0.82, h*0.92);
+  ctx.strokeStyle = 'rgba(212,175,55,0.08)';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  ctx.restore();
+
+  // draw particles
+  for(let p of particles){
+    ctx.beginPath();
+    const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, Math.max(1,p.size*3));
+    const gold = `rgba(212,175,55,${p.alpha})`;
+    gradient.addColorStop(0, 'rgba(255,255,255,'+ (p.alpha*0.95) +')');
+    gradient.addColorStop(0.2, gold);
+    gradient.addColorStop(1, 'rgba(212,175,55,0)');
+    ctx.fillStyle = gradient;
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fill();
+  }
+}
+
+/* main loop */
+let running = false;
+function tick(now){
+  if(!running) return;
+  update(now);
+  draw();
+  requestAnimationFrame(tick);
+}
+
+/* ========= soft sand sound with WebAudio ========= */
+let audioCtx = null;
+let masterGain = null;
+let sandPlayers = [];
+function initAudio(){
+  if(audioCtx) return;
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  audioCtx = new AudioContext();
+  masterGain = audioCtx.createGain();
+  masterGain.gain.value = 0.14; // overall volume
+  masterGain.connect(audioCtx.destination);
+
+  // create gentle granular-ish events
+  function playSandBurst(intensity=1.0){
+    // create many tiny noise clicks with short filters
+    const bursts = Math.round(rand(6,14) * intensity);
+    for(let i=0;i<bursts;i++){
+      const timeOff = rand(0,0.14) + (i*0.01);
+      const osc = audioCtx.createBufferSource();
+      const buffer = audioCtx.createBuffer(1, 2200, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      // fill buffer with random noise shaped
+      for(let j=0;j<data.length;j++){
+        data[j] = (Math.random()*2-1) * Math.exp(-j/700) * 0.5;
+      }
+      osc.buffer = buffer;
+      const filt = audioCtx.createBiquadFilter();
+      filt.type = 'bandpass';
+      filt.frequency.value = rand(800,2200);
+      filt.Q.value = rand(0.8,2.2);
+      const g = audioCtx.createGain();
+      g.gain.value = 0.06 * (0.8 + Math.random()*0.6) * intensity;
+      osc.connect(filt);
+      filt.connect(g);
+      g.connect(masterGain);
+      osc.start(audioCtx.currentTime + timeOff);
+      osc.stop(audioCtx.currentTime + timeOff + 0.25);
+    }
+  }
+
+  // ambient light rustle: schedule subtle periodic bursts
+  function scheduleLoop(){
+    playSandBurst(0.7);
+    setTimeout(()=>playSandBurst(0.5), rand(280,700));
+    setTimeout(()=>scheduleLoop(), rand(1200,2600));
+  }
+  // warm gentle hum underneath (very subtle)
+  const hum = audioCtx.createOscillator();
+  const humGain = audioCtx.createGain();
+  hum.type = 'sine';
+  hum.frequency.value = 120;
+  humGain.gain.value = 0.0025;
+  hum.connect(humGain);
+  humGain.connect(masterGain);
+  hum.start();
+
+  scheduleLoop();
+}
+
+/* ========= interaction & controls ========= */
+const overlay = document.getElementById('overlay');
+const startBtn = document.getElementById('startBtn');
+const replayBtn = document.getElementById('replayBtn');
+
+function startExperience(){
+  // start audio context and visuals
+  try{
+    initAudio();
+  }catch(e){ console.warn('audio init error', e); }
+  if(!running){
+    running = true;
+    last = performance.now();
+    requestAnimationFrame(tick);
+  }
+  // hide overlay
+  overlay.style.display = 'none';
+  // small immediate burst
+  try{ playOneBurst(); } catch(e){}
+}
+
+startBtn.addEventListener('click', (e)=>{
+  // resume audio context if suspended
+  if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  startExperience();
+});
+
+// replay sound button: give a small burst even if overlay closed
+replayBtn.addEventListener('click', (e)=>{
+  if(!audioCtx) initAudio();
+  if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  playOneBurst();
+  // also emit some particles
+  for(let i=0;i<30;i++) emitBatch();
+});
+
+function playOneBurst(){
+  if(!audioCtx) return;
+  // a modest immediate sand burst
+  // call internal function defined above via scheduling small noise packets
+  // We'll approximate by calling initAudio's inner method by creating short noise sources:
+  const bursts = Math.round(rand(6,12));
+  for(let i=0;i<bursts;i++){
+    const timeOff = rand(0,0.06) + (i*0.006);
+    const osc = audioCtx.createBufferSource();
+    const buffer = audioCtx.createBuffer(1, 1600, audioCtx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for(let j=0;j<data.length;j++){
+      data[j] = (Math.random()*2-1) * Math.exp(-j/400) * 0.6;
+    }
+    osc.buffer = buffer;
+    const filt = audioCtx.createBiquadFilter();
+    filt.type = 'bandpass';
+    filt.frequency.value = rand(900,2600);
+    filt.Q.value = rand(0.7,2.4);
+    const g = audioCtx.createGain();
+    g.gain.value = 0.08 * (0.8 + Math.random()*0.6);
+    osc.connect(filt);
+    filt.connect(g);
+    g.connect(masterGain);
+    osc.start(audioCtx.currentTime + timeOff);
+    osc.stop(audioCtx.currentTime + timeOff + 0.28);
+  }
+}
+
+/* small random helper */
+function rand(min,max){ return Math.random()*(max-min)+min; }
+
+/* warm start: gently emit a few */
+for(let i=0;i<12;i++) emitBatch();
+
+/* allow overlay to be dismissed by tapping anywhere (mobile) */
+overlay.addEventListener('click', (e)=>{
+  if(e.target === overlay) startExperience();
+});
+
+/* unlock audio on first user interaction to satisfy mobile auto-play policies */
+document.addEventListener('touchstart', function unlock(){ 
+  if(!audioCtx) {
+    try{ initAudio(); }catch(e){}
+    if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  }
+  document.removeEventListener('touchstart', unlock);
+}, {passive:true});
+
+/* Accessibility: if user navigates with keyboard */
+startBtn.addEventListener('keydown', (ev)=>{ if(ev.key === 'Enter') startExperience(); });
+
+</script>
+</body>
+</html>
