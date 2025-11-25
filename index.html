@@ -20,7 +20,7 @@
   body{
     margin:0;
     font-family: Inter, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Noto Sans", sans-serif;
-    background: linear-gradient(135deg, rgba(255,245,235,1) 0%, rgba(255,250,240,1) 50%, rgba(245,235,220,1) 100%);
+    background: linear-gradient(135deg, #1a2b3c 0%, #2c3e50 50%, #34495e 100%);
     color:var(--text);
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
@@ -65,8 +65,8 @@
     background: linear-gradient(135deg, var(--envelope-red), var(--envelope-dark));
     border-radius: 12px;
     box-shadow: 
-      0 20px 40px rgba(0,0,0,0.1),
-      0 8px 16px rgba(0,0,0,0.05),
+      0 20px 40px rgba(0,0,0,0.3),
+      0 8px 16px rgba(0,0,0,0.2),
       inset 0 1px 0 rgba(255,255,255,0.3);
     display: flex;
     flex-direction: column;
@@ -108,10 +108,20 @@
     align-items: center;
     justify-content: center;
     box-shadow: 
-      0 8px 20px rgba(212,175,55,0.3),
+      0 8px 20px rgba(212,175,55,0.4),
       inset 0 2px 4px rgba(255,255,255,0.3);
     z-index: 3;
     transition: all 0.3s ease;
+    animation: sealGlow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes sealGlow {
+    0% {
+      box-shadow: 0 8px 20px rgba(212,175,55,0.4);
+    }
+    100% {
+      box-shadow: 0 8px 30px rgba(212,175,55,0.8);
+    }
   }
 
   .seal:hover {
@@ -121,17 +131,18 @@
   .seal::before {
     content: '🎄';
     font-size: 32px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
   }
 
   .instruction {
     position: absolute;
     bottom: 30px;
-    color: rgba(255,255,255,0.9);
+    color: rgba(255,255,255,0.95);
     font-size: 16px;
     text-align: center;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
     z-index: 3;
+    font-weight: 500;
   }
 
   /* Card content (hidden initially) */
@@ -141,7 +152,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,250,240,0.9));
+    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,250,240,0.95));
     border-radius: 12px;
     padding: 40px 30px;
     display: none;
@@ -150,7 +161,6 @@
     justify-content: center;
     text-align: center;
     z-index: 4;
-    box-shadow: inset 0 0 0 2px rgba(212,175,55,0.1);
   }
 
   .card-content.show {
@@ -173,38 +183,41 @@
     font-size:16px;
     color:#333;
     line-height:1.6;
-    padding: 24px 32px;
-    border-radius:16px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
-    box-shadow: 0 8px 32px rgba(20,20,20,0.08);
+    padding: 28px 36px;
+    border-radius:20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+    box-shadow: 0 12px 40px rgba(20,20,20,0.15);
     position: relative;
     max-width: 400px;
-    /* Golden border effect */
-    border: 1.5px solid transparent;
+    /* Thicker golden border effect */
+    border: 3px solid transparent;
     background-clip: padding-box;
   }
 
-  /* Golden border using pseudo-element */
+  /* Thicker Golden border using pseudo-element */
   .message::before {
     content: '';
     position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(135deg, var(--gold-1), var(--gold-2), var(--gold-1));
-    border-radius: 18px;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    background: linear-gradient(135deg, var(--gold-1), var(--gold-2), #ffd700, var(--gold-1));
+    border-radius: 24px;
     z-index: -1;
-    opacity: 0.4;
-    animation: goldenGlow 3s ease-in-out infinite alternate;
+    opacity: 0.8;
+    animation: goldenGlow 2s ease-in-out infinite alternate;
+    filter: drop-shadow(0 4px 12px rgba(212,175,55,0.3));
   }
 
   @keyframes goldenGlow {
     0% {
-      opacity: 0.3;
+      opacity: 0.7;
+      filter: drop-shadow(0 4px 12px rgba(212,175,55,0.3));
     }
     100% {
-      opacity: 0.6;
+      opacity: 1;
+      filter: drop-shadow(0 6px 20px rgba(212,175,55,0.6));
     }
   }
 
@@ -247,21 +260,27 @@
   .foot .meta{color:var(--sub); font-size:13px;}
   .tap{
     margin-left:auto;
-    background:transparent;
-    border:1px solid rgba(20,20,20,0.06);
-    padding:10px 14px;
+    background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
+    border: none;
+    padding:10px 16px;
     border-radius:12px;
     font-size:14px;
     cursor:pointer;
-    color:var(--text);
-    box-shadow: 0 4px 12px rgba(20,20,20,0.04);
+    color: white;
+    box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+    transition: all 0.3s ease;
+  }
+
+  .tap:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(212,175,55,0.5);
   }
 
   /* small responsive */
   @media (max-width:520px){
     .envelope-container { max-width: 90%; }
     .envelope { height: 280px; }
-    .message{ font-size:15px; padding:18px; }
+    .message{ font-size:15px; padding:22px; }
     .seal { width: 60px; height: 60px; }
     .seal::before { font-size: 24px; }
   }
@@ -293,14 +312,14 @@
 
         <div class="foot">
           <div class="meta">Made with a little light & a little magic</div>
-          <button class="tap" id="replayBtn" aria-label="Replay music">Play music</button>
+          <button class="tap" id="replayBtn" aria-label="Replay music">🎵 Play music</button>
         </div>
       </div>
     </div>
   </div>
 
 <script>
-/* ========= Full Page Particle System ========= */
+/* ========= Full Page Snow System ========= */
 const fullPageCanvas = document.getElementById('fullPageCanvas');
 const fullPageCtx = fullPageCanvas.getContext('2d', { alpha: true });
 let fullPageDPR = window.devicePixelRatio || 1;
@@ -316,108 +335,119 @@ function fitFullPageCanvas() {
 fitFullPageCanvas();
 window.addEventListener('resize', fitFullPageCanvas);
 
-// Full page particles
-let fullPageParticles = [];
-const FULL_PAGE_MAX = 150;
+// Snow particles
+let snowflakes = [];
+const SNOWFLAKE_COUNT = 150;
 
-function createFullPageParticle() {
+function createSnowflake() {
+  const size = Math.random() * 4 + 2; // Larger snowflakes
   return {
     x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    vx: (Math.random() - 0.5) * 0.2,
-    vy: (Math.random() - 0.5) * 0.2,
-    size: Math.random() * 1.5 + 0.5,
-    life: Math.random() * 10 + 5,
+    y: Math.random() * -window.innerHeight, // Start above the screen
+    vx: (Math.random() - 0.5) * 0.5,
+    vy: Math.random() * 2 + 1, // Falling speed
+    size: size,
+    swing: Math.random() * Math.PI * 2,
+    swingSpeed: Math.random() * 0.02 + 0.01,
+    life: Math.random() * 20 + 10,
     age: 0,
-    alpha: Math.random() * 0.3 + 0.2,
-    hue: Math.random() * 10 + 38 // golden hue
+    alpha: Math.random() * 0.8 + 0.2,
+    wobble: Math.random() * 0.5 + 0.5
   };
 }
 
-function emitFullPageBatch(count = 8) {
+function emitSnowflakeBatch(count = 10) {
   for (let i = 0; i < count; i++) {
-    if (fullPageParticles.length < FULL_PAGE_MAX) {
-      fullPageParticles.push(createFullPageParticle());
+    if (snowflakes.length < SNOWFLAKE_COUNT) {
+      snowflakes.push(createSnowflake());
     }
   }
 }
 
-let fullPageLast = performance.now();
-function updateFullPageParticles(now) {
-  const dt = (now - fullPageLast) / 1000;
-  fullPageLast = now;
+let snowLast = performance.now();
+function updateSnowflakes(now) {
+  const dt = (now - snowLast) / 1000;
+  snowLast = now;
 
-  // Occasional emission
-  if (Math.random() < 0.2) {
-    emitFullPageBatch(2);
+  // Continuous snow emission
+  if (Math.random() < 0.3) {
+    emitSnowflakeBatch(3);
   }
 
-  // Update particles
-  for (let i = fullPageParticles.length - 1; i >= 0; i--) {
-    let p = fullPageParticles[i];
-    p.age += dt;
-    p.x += p.vx;
-    p.y += p.vy;
+  // Update snowflakes
+  for (let i = snowflakes.length - 1; i >= 0; i--) {
+    let snowflake = snowflakes[i];
+    snowflake.age += dt;
     
-    // Gentle floating movement
-    p.vx += (Math.random() - 0.5) * 0.01;
-    p.vy += (Math.random() - 0.5) * 0.01;
+    // Snowflake movement with swinging motion
+    snowflake.swing += snowflake.swingSpeed;
+    snowflake.x += snowflake.vx + Math.sin(snowflake.swing) * snowflake.wobble;
+    snowflake.y += snowflake.vy;
     
-    // Limit velocity
-    p.vx = Math.max(-0.3, Math.min(0.3, p.vx));
-    p.vy = Math.max(-0.3, Math.min(0.3, p.vy));
+    // Reset if out of bounds
+    if (snowflake.y > window.innerHeight + 10) {
+      snowflake.y = -10;
+      snowflake.x = Math.random() * window.innerWidth;
+    }
+    if (snowflake.x < -20) snowflake.x = window.innerWidth + 20;
+    if (snowflake.x > window.innerWidth + 20) snowflake.x = -20;
     
-    // Wrap around edges
-    if (p.x < -10) p.x = window.innerWidth + 10;
-    if (p.x > window.innerWidth + 10) p.x = -10;
-    if (p.y < -10) p.y = window.innerHeight + 10;
-    if (p.y > window.innerHeight + 10) p.y = -10;
-    
-    p.alpha *= 0.999;
-    if (p.age > p.life || p.alpha < 0.05) {
-      fullPageParticles.splice(i, 1);
+    if (snowflake.age > snowflake.life) {
+      snowflakes.splice(i, 1);
     }
   }
 }
 
-function drawFullPageParticles() {
+function drawSnowflakes() {
   const w = window.innerWidth;
   const h = window.innerHeight;
   
-  // Clear with subtle fade effect for trails
-  fullPageCtx.fillStyle = 'rgba(255, 250, 240, 0.03)';
+  // Clear with dark blue background for night snow scene
+  fullPageCtx.fillStyle = 'rgba(26, 43, 60, 0.1)';
   fullPageCtx.fillRect(0, 0, w, h);
 
-  // Draw particles
-  for (let p of fullPageParticles) {
+  // Draw snowflakes
+  for (let snowflake of snowflakes) {
     fullPageCtx.save();
-    fullPageCtx.globalAlpha = p.alpha;
-    fullPageCtx.fillStyle = `rgba(212, 175, 55, ${p.alpha})`;
+    fullPageCtx.globalAlpha = snowflake.alpha;
+    fullPageCtx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    
+    // Create snowflake shape with multiple circles for a fluffy look
     fullPageCtx.beginPath();
-    fullPageCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    fullPageCtx.arc(snowflake.x, snowflake.y, snowflake.size, 0, Math.PI * 2);
+    
+    // Add some smaller circles around for snowflake effect
+    for (let j = 0; j < 6; j++) {
+      const angle = (j * Math.PI) / 3;
+      const dx = Math.cos(angle) * snowflake.size * 0.8;
+      const dy = Math.sin(angle) * snowflake.size * 0.8;
+      fullPageCtx.moveTo(snowflake.x + dx, snowflake.y + dy);
+      fullPageCtx.arc(snowflake.x + dx, snowflake.y + dy, snowflake.size * 0.6, 0, Math.PI * 2);
+    }
+    
     fullPageCtx.fill();
     fullPageCtx.restore();
   }
 }
 
-// Full page animation loop
-let fullPageRunning = true;
-function fullPageTick(now) {
-  if (!fullPageRunning) return;
-  updateFullPageParticles(now);
-  drawFullPageParticles();
-  requestAnimationFrame(fullPageTick);
+// Snow animation loop
+let snowRunning = true;
+function snowTick(now) {
+  if (!snowRunning) return;
+  updateSnowflakes(now);
+  drawSnowflakes();
+  requestAnimationFrame(snowTick);
 }
 
-// Start full page particles
-fullPageTick(performance.now());
-emitFullPageBatch(40);
+// Start snow
+snowTick(performance.now());
+emitSnowflakeBatch(SNOWFLAKE_COUNT);
 
 /* ========= Jar Particle System ========= */
 const canvas = document.getElementById('particleCanvas');
 const ctx = canvas.getContext('2d',{alpha:true});
 let jarParticles = [];
-const JAR_MAX = 80;
+const JAR_MAX = 60;
 
 function fitCanvas(){
   const rect = canvas.getBoundingClientRect();
@@ -432,20 +462,20 @@ function createJarParticle(){
   const w = canvas.clientWidth;
   const h = canvas.clientHeight;
   return {
-    x: w/2 + (Math.random() - 0.5) * 60,
+    x: w/2 + (Math.random() - 0.5) * 50,
     y: h * 0.8,
-    vx: (Math.random() - 0.5) * 0.1,
-    vy: -Math.random() * 0.4 - 0.1,
-    size: Math.random() * 1.5 + 0.5,
-    life: Math.random() * 4 + 2,
+    vx: (Math.random() - 0.5) * 0.08,
+    vy: -Math.random() * 0.3 - 0.05,
+    size: Math.random() * 2 + 1,
+    life: Math.random() * 5 + 3,
     age: 0,
-    alpha: Math.random() * 0.6 + 0.4
+    alpha: Math.random() * 0.7 + 0.3
   };
 }
 
 function emitJarBatch(){
   if (!jarRunning) return;
-  for(let i=0;i<3;i++){
+  for(let i=0;i<2;i++){
     if(jarParticles.length < JAR_MAX) {
       jarParticles.push(createJarParticle());
     }
@@ -460,15 +490,15 @@ function updateJarParticles(now){
   const dt = (now - jarLast) / 1000;
   jarLast = now;
 
-  if(Math.random() < 0.6) emitJarBatch();
+  if(Math.random() < 0.5) emitJarBatch();
 
   for(let i=jarParticles.length-1;i>=0;i--){
     let p = jarParticles[i];
     p.age += dt;
     p.x += p.vx;
     p.y += p.vy;
-    p.vy += 0.01; // gravity
-    p.alpha *= 0.995;
+    p.vy += 0.008; // gentle gravity
+    p.alpha *= 0.998;
     
     if(p.age > p.life || p.alpha < 0.05 || p.y < -10) {
       jarParticles.splice(i,1);
@@ -481,10 +511,10 @@ function drawJarParticles(){
   const h = canvas.clientHeight;
   ctx.clearRect(0,0,w,h);
 
-  // Draw jar silhouette
+  // Draw golden jar silhouette
   ctx.save();
-  ctx.strokeStyle = 'rgba(212,175,55,0.15)';
-  ctx.lineWidth = 2;
+  ctx.strokeStyle = 'rgba(212,175,55,0.25)';
+  ctx.lineWidth = 3;
   ctx.beginPath();
   ctx.moveTo(w*0.3, h*0.9);
   ctx.bezierCurveTo(w*0.3, h*0.4, w*0.4, h*0.2, w*0.5, h*0.15);
@@ -492,13 +522,13 @@ function drawJarParticles(){
   ctx.stroke();
   ctx.restore();
 
-  // Draw particles
+  // Draw golden particles
   for(let p of jarParticles){
     ctx.save();
     ctx.globalAlpha = p.alpha;
-    const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 2);
-    gradient.addColorStop(0, 'rgba(255,255,255,0.8)');
-    gradient.addColorStop(0.5, 'rgba(212,175,55,0.6)');
+    const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 2.5);
+    gradient.addColorStop(0, 'rgba(255,255,255,0.9)');
+    gradient.addColorStop(0.4, 'rgba(255,215,0,0.7)');
     gradient.addColorStop(1, 'rgba(212,175,55,0)');
     ctx.fillStyle = gradient;
     ctx.beginPath();
@@ -515,10 +545,10 @@ function jarTick(now){
   requestAnimationFrame(jarTick);
 }
 
-/* ========= Christmas Music ========= */
+/* ========= Enhanced Christmas Music ========= */
 let audioCtx = null;
-let musicSource = null;
 let musicGain = null;
+let isMusicPlaying = false;
 
 function initMusic() {
   if (audioCtx) return;
@@ -526,55 +556,81 @@ function initMusic() {
   const AudioContext = window.AudioContext || window.webkitAudioContext;
   audioCtx = new AudioContext();
   musicGain = audioCtx.createGain();
-  musicGain.gain.value = 0.3;
+  musicGain.gain.value = 0.6; // Louder volume
   musicGain.connect(audioCtx.destination);
 
-  // Create a simple, gentle Christmas melody using Web Audio API
-  function playNote(frequency, duration, startTime, volume = 0.1) {
-    const osc = audioCtx.createOscillator();
+  // Enhanced "Jingle Bells" melody with harmonies
+  function playBellNote(frequency, duration, startTime, volume = 0.15) {
+    const osc1 = audioCtx.createOscillator();
+    const osc2 = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
     
-    osc.type = 'sine';
-    osc.frequency.value = frequency;
+    // Main tone
+    osc1.type = 'sine';
+    osc1.frequency.value = frequency;
+    
+    // Harmony tone (perfect fifth)
+    osc2.type = 'sine';
+    osc2.frequency.value = frequency * 1.5;
     
     gainNode.gain.value = volume;
     gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
     
-    osc.connect(gainNode);
+    osc1.connect(gainNode);
+    osc2.connect(gainNode);
     gainNode.connect(musicGain);
     
-    osc.start(startTime);
-    osc.stop(startTime + duration);
+    osc1.start(startTime);
+    osc2.start(startTime);
+    osc1.stop(startTime + duration);
+    osc2.stop(startTime + duration);
   }
 
-  // "Silent Night" melody notes (simplified)
+  // Jingle Bells melody (more recognizable)
   const melody = [
-    { note: 392, duration: 0.6 }, // G
-    { note: 349, duration: 0.6 }, // F
-    { note: 330, duration: 0.6 }, // E
-    { note: 392, duration: 0.6 }, // G
-    { note: 392, duration: 0.6 }, // G
-    { note: 349, duration: 0.6 }, // F
-    { note: 330, duration: 0.6 }, // E
-    { note: 294, duration: 0.6 }, // D
-    { note: 392, duration: 0.6 }, // G
-    { note: 392, duration: 0.6 }, // G
-    { note: 440, duration: 0.6 }, // A
-    { note: 392, duration: 0.6 }, // G
-    { note: 349, duration: 0.6 }, // F
-    { note: 330, duration: 0.6 }, // E
-    { note: 349, duration: 0.6 }, // F
-    { note: 392, duration: 0.6 }  // G
+    { note: 523, duration: 0.4 }, // C5
+    { note: 523, duration: 0.4 }, // C5
+    { note: 523, duration: 0.8 }, // C5
+    { note: 523, duration: 0.4 }, // C5
+    { note: 523, duration: 0.4 }, // C5
+    { note: 523, duration: 0.8 }, // C5
+    { note: 523, duration: 0.4 }, // C5
+    { note: 659, duration: 0.4 }, // E5
+    { note: 494, duration: 0.4 }, // B4
+    { note: 523, duration: 0.8 }, // C5
+    { note: 587, duration: 0.4 }, // D5
+    { note: 587, duration: 0.4 }, // D5
+    { note: 587, duration: 0.4 }, // D5
+    { note: 587, duration: 0.4 }, // D5
+    { note: 587, duration: 0.4 }, // D5
+    { note: 523, duration: 0.4 }, // C5
+    { note: 523, duration: 0.4 }, // C5
+    { note: 523, duration: 0.4 }, // C5
+    { note: 523, duration: 0.4 }, // C5
+    { note: 494, duration: 0.4 }, // B4
+    { note: 494, duration: 0.4 }, // B4
+    { note: 523, duration: 0.4 }, // C5
+    { note: 494, duration: 0.8 }, // B4
+    { note: 659, duration: 0.8 }  // E5
   ];
 
   function scheduleMusic() {
+    if (!isMusicPlaying) return;
+    
     const startTime = audioCtx.currentTime + 0.1;
     melody.forEach((note, index) => {
-      playNote(note.note, note.duration, startTime + index * 0.7);
+      playBellNote(note.note, note.duration, startTime + index * 0.5, 0.2);
+    });
+    
+    // Add some bass notes for richness
+    melody.forEach((note, index) => {
+      if (index % 2 === 0) {
+        playBellNote(note.note * 0.5, note.duration * 1.5, startTime + index * 0.5, 0.08);
+      }
     });
     
     // Repeat after melody finishes
-    setTimeout(scheduleMusic, melody.length * 700);
+    setTimeout(scheduleMusic, melody.length * 500 + 1000);
   }
 
   scheduleMusic();
@@ -583,8 +639,14 @@ function initMusic() {
 function playMusic() {
   if (!audioCtx) {
     initMusic();
+    isMusicPlaying = true;
   } else if (audioCtx.state === 'suspended') {
     audioCtx.resume();
+  }
+  
+  if (!isMusicPlaying) {
+    isMusicPlaying = true;
+    initMusic();
   }
 }
 
@@ -639,8 +701,8 @@ envelopeContainer.addEventListener('keydown', (e) => {
 envelopeContainer.setAttribute('tabindex', '0');
 
 /* ========= Initialize ========= */
-// Initial full page particles
-emitFullPageBatch(40);
+// Initial snow
+emitSnowflakeBatch(SNOWFLAKE_COUNT);
 
 // Auto-fit canvas when jar becomes visible
 const observer = new MutationObserver((mutations) => {
