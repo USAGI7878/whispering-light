@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>Whispering Light in a Clear Winter</title>
-<meta name="description" content="Whispering Light in a Clear Winter — a tiny transparent christmas jar. From Peggy · 2025" />
+<meta name="description" content="Whispering Light in a Clear Winter — a christmas envelope with warm wishes. From Peggy · 2025" />
 <style>
   :root{
     --bg:#ffffff;
@@ -13,12 +13,14 @@
     --muted:#f6f6f6;
     --text:#1b1b1b;
     --sub:#666;
+    --envelope-red: #d4a76a; /* warm parchment color */
+    --envelope-dark: #b08c5a;
   }
   html,body{height:100%;}
   body{
     margin:0;
     font-family: Inter, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Noto Sans", sans-serif;
-    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(252,250,248,1) 40%, rgba(255,250,240,1) 100%);
+    background: linear-gradient(135deg, rgba(255,245,235,1) 0%, rgba(255,250,240,1) 50%, rgba(245,235,220,1) 100%);
     color:var(--text);
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
@@ -42,81 +44,141 @@
     pointer-events: none;
   }
 
-  .card{
-    width:100%;
-    max-width:760px;
-    min-height:480px;
-    border-radius:18px;
-    box-shadow: 0 10px 30px rgba(20,20,20,0.06);
-    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7));
-    position:relative;
-    overflow:hidden;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding:36px 30px;
-    box-sizing:border-box;
+  /* Envelope Container */
+  .envelope-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
     z-index: 2;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: transform 0.3s ease;
   }
 
-  /* header */
-  .top{
-    width:100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:12px;
-    margin-bottom:6px;
-  }
-  .icon{
-    width:42px;
-    height:42px;
-    border-radius:8px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border:1px solid rgba(212,175,55,0.18);
-    background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.1));
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
-  }
-  .icon svg{width:20px;height:20px;fill:none; stroke:var(--gold-1); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; opacity:0.98;}
-
-  h1{
-    font-weight:600;
-    margin:0;
-    font-size:20px;
-    letter-spacing:0.2px;
-    color: #0f1720;
-    text-align:center;
-  }
-  .subtitle{
-    margin-top:6px;
-    color:var(--sub);
-    font-size:14px;
-    text-align:center;
-    max-width:560px;
-    line-height:1.45;
+  .envelope-container:hover {
+    transform: scale(1.02);
   }
 
-  .content{
-    margin-top:18px;
-    text-align:center;
-    max-width:640px;
+  .envelope {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    background: linear-gradient(135deg, var(--envelope-red), var(--envelope-dark));
+    border-radius: 12px;
+    box-shadow: 
+      0 20px 40px rgba(0,0,0,0.1),
+      0 8px 16px rgba(0,0,0,0.05),
+      inset 0 1px 0 rgba(255,255,255,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Envelope flap */
+  .envelope::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 160px;
+    background: linear-gradient(135deg, var(--envelope-dark), #9c7a4d);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top;
+    transition: transform 0.6s ease;
+    z-index: 2;
+  }
+
+  .envelope.open::before {
+    transform: rotateX(180deg);
+  }
+
+  /* Envelope seal */
+  .seal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+      0 8px 20px rgba(212,175,55,0.3),
+      inset 0 2px 4px rgba(255,255,255,0.3);
+    z-index: 3;
+    transition: all 0.3s ease;
+  }
+
+  .seal:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  .seal::before {
+    content: '🎄';
+    font-size: 32px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  }
+
+  .instruction {
+    position: absolute;
+    bottom: 30px;
+    color: rgba(255,255,255,0.9);
+    font-size: 16px;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    z-index: 3;
+  }
+
+  /* Card content (hidden initially) */
+  .card-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,250,240,0.9));
+    border-radius: 12px;
+    padding: 40px 30px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 4;
+    box-shadow: inset 0 0 0 2px rgba(212,175,55,0.1);
+  }
+
+  .card-content.show {
+    display: flex;
+    animation: cardReveal 0.8s ease-out;
+  }
+
+  @keyframes cardReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 
   .message{
-    margin-top:18px;
     font-size:16px;
-    color:#222;
+    color:#333;
     line-height:1.6;
     padding: 24px 32px;
     border-radius:16px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));
+    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
     box-shadow: 0 8px 32px rgba(20,20,20,0.08);
     position: relative;
-    z-index: 1;
+    max-width: 400px;
     /* Golden border effect */
     border: 1.5px solid transparent;
     background-clip: padding-box;
@@ -153,21 +215,27 @@
     letter-spacing:0.6px;
   }
 
-  /* canvas area (bottle) */
-  .bottle-wrap{
-    position:relative;
-    width:100%;
-    max-width:520px;
-    margin-top:22px;
-    height:240px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+  /* Jar particle container */
+  .jar-container {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    margin: 20px 0;
+    display: none;
   }
 
-  canvas{ width:100%; height:100%; display:block; }
+  .jar-container.show {
+    display: block;
+    animation: fadeIn 1s ease-out;
+  }
 
-  /* footer */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Footer */
   .foot{
     width:100%;
     display:flex;
@@ -189,45 +257,13 @@
     box-shadow: 0 4px 12px rgba(20,20,20,0.04);
   }
 
-  /* overlay for first tap */
-  .overlay{
-    position:absolute;
-    inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background: linear-gradient(180deg, rgba(255,255,255,0.0001), rgba(255,255,255,0.0001));
-    z-index:20;
-    pointer-events:auto;
-  }
-  .overlay-inner{
-    backdrop-filter: blur(6px) saturate(1.05);
-    -webkit-backdrop-filter: blur(6px) saturate(1.05);
-    background: rgba(255,255,255,0.6);
-    border-radius:12px;
-    padding:18px 22px;
-    text-align:center;
-    box-shadow: 0 8px 24px rgba(10,10,10,0.06);
-  }
-  .overlay-inner h3{margin:0;font-size:16px;font-weight:600;color:#0f1720}
-  .overlay-inner p{margin:8px 0 0;color:var(--sub);font-size:13px}
-  .overlay-inner button{
-    margin-top:12px;
-    background:linear-gradient(90deg,var(--gold-1),var(--gold-2));
-    color:#fff;
-    border:0;
-    padding:10px 16px;
-    border-radius:10px;
-    font-size:14px;
-    cursor:pointer;
-  }
-
   /* small responsive */
   @media (max-width:520px){
-    .card{ padding:20px; min-height:520px; }
-    .bottle-wrap{ height:300px; }
-    h1{ font-size:18px;}
+    .envelope-container { max-width: 90%; }
+    .envelope { height: 280px; }
     .message{ font-size:15px; padding:18px; }
+    .seal { width: 60px; height: 60px; }
+    .seal::before { font-size: 24px; }
   }
 </style>
 </head>
@@ -235,42 +271,30 @@
   <!-- Full page particle canvas -->
   <canvas id="fullPageCanvas"></canvas>
 
-  <div class="card" role="main" aria-label="Whispering Light in a Clear Winter">
-    <div class="top" aria-hidden="true">
-      <div class="icon" aria-hidden="true">
-        <!-- tiny minimalist star/snowflake -->
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 2v4M12 18v4M4.2 4.2l2.8 2.8M16.9 16.9l2.8 2.8M2 12h4M18 12h4M4.2 19.8l2.8-2.8M16.9 7.1l2.8-2.8"/>
-        </svg>
-      </div>
-      <h1>Whispering Light in a Clear Winter</h1>
-    </div>
-
-    <div class="subtitle">A tiny transparent jar that holds a soft light — a short pause for you in the noise of the day.</div>
-
-    <div class="content">
-      <div class="message">
-        <em>"Transparency is not emptiness, but a way to hold light."</em><br><br>
-        Merry Christmas 🎄<br>
-        Thank you for walking through the busy times and unexpected challenges together this year. Those rare moments of warmth also shine in my heart. I hope this little light can gently remind you when you need it: you deserve to be treated with kindness.<br><br>
-        — Peggy · 2025
-      </div>
-
-      <div class="bottle-wrap" aria-hidden="true">
-        <canvas id="particleCanvas"></canvas>
-        <!-- overlay will prompt tap to enable sound & interaction -->
-        <div class="overlay" id="overlay">
-          <div class="overlay-inner">
-            <h3>Tap to open the little jar</h3>
-            <p>Touch to unlock gentle rustling sounds and magical particles.</p>
-            <button id="startBtn">Open</button>
-          </div>
+  <!-- Envelope -->
+  <div class="envelope-container" id="envelopeContainer">
+    <div class="envelope" id="envelope">
+      <div class="seal" id="seal"></div>
+      <div class="instruction">Tap the seal to open</div>
+      
+      <!-- Card content (hidden initially) -->
+      <div class="card-content" id="cardContent">
+        <div class="message">
+          <em>"Transparency is not emptiness, but a way to hold light."</em><br><br>
+          Merry Christmas 🎄<br>
+          Thank you for walking through the busy times and unexpected challenges together this year. Those rare moments of warmth also shine in my heart. I hope this little light can gently remind you when you need it: you deserve to be treated with kindness.<br><br>
+          — Peggy · 2025
         </div>
-      </div>
 
-      <div class="foot">
-        <div class="meta">Made with a little light & a little magic</div>
-        <button class="tap" id="replayBtn" aria-label="Replay gentle sand sound">Play sound</button>
+        <!-- Jar particle effect -->
+        <div class="jar-container" id="jarContainer">
+          <canvas id="particleCanvas"></canvas>
+        </div>
+
+        <div class="foot">
+          <div class="meta">Made with a little light & a little magic</div>
+          <button class="tap" id="replayBtn" aria-label="Replay music">Play music</button>
+        </div>
       </div>
     </div>
   </div>
@@ -294,23 +318,23 @@ window.addEventListener('resize', fitFullPageCanvas);
 
 // Full page particles
 let fullPageParticles = [];
-const FULL_PAGE_MAX = 200;
+const FULL_PAGE_MAX = 150;
 
 function createFullPageParticle() {
   return {
     x: Math.random() * window.innerWidth,
     y: Math.random() * window.innerHeight,
-    vx: (Math.random() - 0.5) * 0.3,
-    vy: (Math.random() - 0.5) * 0.3,
-    size: Math.random() * 2 + 0.5,
-    life: Math.random() * 8 + 4,
+    vx: (Math.random() - 0.5) * 0.2,
+    vy: (Math.random() - 0.5) * 0.2,
+    size: Math.random() * 1.5 + 0.5,
+    life: Math.random() * 10 + 5,
     age: 0,
-    alpha: Math.random() * 0.4 + 0.3,
+    alpha: Math.random() * 0.3 + 0.2,
     hue: Math.random() * 10 + 38 // golden hue
   };
 }
 
-function emitFullPageBatch(count = 10) {
+function emitFullPageBatch(count = 8) {
   for (let i = 0; i < count; i++) {
     if (fullPageParticles.length < FULL_PAGE_MAX) {
       fullPageParticles.push(createFullPageParticle());
@@ -324,7 +348,7 @@ function updateFullPageParticles(now) {
   fullPageLast = now;
 
   // Occasional emission
-  if (Math.random() < 0.3) {
+  if (Math.random() < 0.2) {
     emitFullPageBatch(2);
   }
 
@@ -335,11 +359,21 @@ function updateFullPageParticles(now) {
     p.x += p.vx;
     p.y += p.vy;
     
-    // Bounce off edges
-    if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
-    if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
+    // Gentle floating movement
+    p.vx += (Math.random() - 0.5) * 0.01;
+    p.vy += (Math.random() - 0.5) * 0.01;
     
-    p.alpha *= 0.998;
+    // Limit velocity
+    p.vx = Math.max(-0.3, Math.min(0.3, p.vx));
+    p.vy = Math.max(-0.3, Math.min(0.3, p.vy));
+    
+    // Wrap around edges
+    if (p.x < -10) p.x = window.innerWidth + 10;
+    if (p.x > window.innerWidth + 10) p.x = -10;
+    if (p.y < -10) p.y = window.innerHeight + 10;
+    if (p.y > window.innerHeight + 10) p.y = -10;
+    
+    p.alpha *= 0.999;
     if (p.age > p.life || p.alpha < 0.05) {
       fullPageParticles.splice(i, 1);
     }
@@ -351,20 +385,18 @@ function drawFullPageParticles() {
   const h = window.innerHeight;
   
   // Clear with subtle fade effect for trails
-  fullPageCtx.fillStyle = 'rgba(255, 250, 240, 0.05)';
+  fullPageCtx.fillStyle = 'rgba(255, 250, 240, 0.03)';
   fullPageCtx.fillRect(0, 0, w, h);
 
   // Draw particles
   for (let p of fullPageParticles) {
+    fullPageCtx.save();
+    fullPageCtx.globalAlpha = p.alpha;
+    fullPageCtx.fillStyle = `rgba(212, 175, 55, ${p.alpha})`;
     fullPageCtx.beginPath();
-    const gradient = fullPageCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3);
-    const gold = `rgba(212,175,55,${p.alpha})`;
-    gradient.addColorStop(0, 'rgba(255,255,255,' + (p.alpha * 0.8) + ')');
-    gradient.addColorStop(0.3, gold);
-    gradient.addColorStop(1, 'rgba(212,175,55,0)');
-    fullPageCtx.fillStyle = gradient;
     fullPageCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
     fullPageCtx.fill();
+    fullPageCtx.restore();
   }
 }
 
@@ -379,262 +411,256 @@ function fullPageTick(now) {
 
 // Start full page particles
 fullPageTick(performance.now());
-emitFullPageBatch(50);
+emitFullPageBatch(40);
 
-/* ========= Original Jar Particle System ========= */
+/* ========= Jar Particle System ========= */
 const canvas = document.getElementById('particleCanvas');
 const ctx = canvas.getContext('2d',{alpha:true});
-let DPR = window.devicePixelRatio || 1;
+let jarParticles = [];
+const JAR_MAX = 80;
+
 function fitCanvas(){
   const rect = canvas.getBoundingClientRect();
-  canvas.width = Math.floor(rect.width * DPR);
-  canvas.height = Math.floor(rect.height * DPR);
+  canvas.width = Math.floor(rect.width * fullPageDPR);
+  canvas.height = Math.floor(rect.height * fullPageDPR);
   canvas.style.width = rect.width + 'px';
   canvas.style.height = rect.height + 'px';
-  ctx.setTransform(DPR,0,0,DPR,0,0);
+  ctx.setTransform(fullPageDPR,0,0,fullPageDPR,0,0);
 }
-fitCanvas();
-window.addEventListener('resize', () => { fitCanvas(); });
 
-/* particles that drift upward like micro sand/light */
-let particles = [];
-const MAX = 120;
-function rand(min,max){ return Math.random()*(max-min)+min; }
-
-function createParticle(x,y){
+function createJarParticle(){
+  const w = canvas.clientWidth;
+  const h = canvas.clientHeight;
   return {
-    x: x + rand(-40,40),
-    y: y + rand(-10,10),
-    vx: rand(-0.08,0.08),
-    vy: rand(-0.25, -0.6),
-    size: rand(0.6,2.6),
-    life: rand(2.4,6.0),
-    age:0,
-    alpha: rand(0.6,1),
-    hue: rand(38,48) // golden hue
+    x: w/2 + (Math.random() - 0.5) * 60,
+    y: h * 0.8,
+    vx: (Math.random() - 0.5) * 0.1,
+    vy: -Math.random() * 0.4 - 0.1,
+    size: Math.random() * 1.5 + 0.5,
+    life: Math.random() * 4 + 2,
+    age: 0,
+    alpha: Math.random() * 0.6 + 0.4
   };
 }
 
-function emitBatch(){
-  const w = canvas.clientWidth;
-  const h = canvas.clientHeight;
-  const baseX = w/2;
-  const baseY = h*0.75; // bottom-ish
-  for(let i=0;i<6;i++){
-    if(particles.length<MAX) particles.push(createParticle(baseX, baseY));
+function emitJarBatch(){
+  if (!jarRunning) return;
+  for(let i=0;i<3;i++){
+    if(jarParticles.length < JAR_MAX) {
+      jarParticles.push(createJarParticle());
+    }
   }
 }
 
-let last = performance.now();
-function update(now){
-  const dt = (now-last)/1000; last = now;
-  // occasional emission
-  if(Math.random() < 0.55 * dt * 60/60) emitBatch();
-  // update
-  for(let i=particles.length-1;i>=0;i--){
-    let p = particles[i];
+let jarLast = performance.now();
+let jarRunning = false;
+
+function updateJarParticles(now){
+  if (!jarRunning) return;
+  const dt = (now - jarLast) / 1000;
+  jarLast = now;
+
+  if(Math.random() < 0.6) emitJarBatch();
+
+  for(let i=jarParticles.length-1;i>=0;i--){
+    let p = jarParticles[i];
     p.age += dt;
-    p.x += p.vx * (60*dt*1.0);
-    p.y += p.vy * (60*dt*1.0) - Math.sin(p.age*1.5)*0.02;
-    p.vx *= 0.999;
-    p.alpha *= 0.999;
-    if(p.age > p.life || p.alpha < 0.03 || p.y < -10) particles.splice(i,1);
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.01; // gravity
+    p.alpha *= 0.995;
+    
+    if(p.age > p.life || p.alpha < 0.05 || p.y < -10) {
+      jarParticles.splice(i,1);
+    }
   }
 }
 
-function draw(){
+function drawJarParticles(){
   const w = canvas.clientWidth;
   const h = canvas.clientHeight;
   ctx.clearRect(0,0,w,h);
 
-  // subtle glass reflection
-  const g = ctx.createLinearGradient(0,0,0,h);
-  g.addColorStop(0,'rgba(255,255,255,0.35)');
-  g.addColorStop(1,'rgba(255,250,240,0)');
-  ctx.fillStyle = g;
-  ctx.fillRect(0,0,w,h);
-
-  // draw a faint bottle silhouette / arc to hint the jar (very subtle)
+  // Draw jar silhouette
   ctx.save();
-  ctx.beginPath();
-  ctx.moveTo(w*0.18,h*0.92);
-  ctx.bezierCurveTo(w*0.18,h*0.6, w*0.25, h*0.32, w*0.5, h*0.28);
-  ctx.bezierCurveTo(w*0.75,h*0.32, w*0.82, h*0.6, w*0.82, h*0.92);
-  ctx.strokeStyle = 'rgba(212,175,55,0.08)';
+  ctx.strokeStyle = 'rgba(212,175,55,0.15)';
   ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(w*0.3, h*0.9);
+  ctx.bezierCurveTo(w*0.3, h*0.4, w*0.4, h*0.2, w*0.5, h*0.15);
+  ctx.bezierCurveTo(w*0.6, h*0.2, w*0.7, h*0.4, w*0.7, h*0.9);
   ctx.stroke();
   ctx.restore();
 
-  // draw particles
-  for(let p of particles){
-    ctx.beginPath();
-    const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, Math.max(1,p.size*3));
-    const gold = `rgba(212,175,55,${p.alpha})`;
-    gradient.addColorStop(0, 'rgba(255,255,255,'+ (p.alpha*0.95) +')');
-    gradient.addColorStop(0.2, gold);
+  // Draw particles
+  for(let p of jarParticles){
+    ctx.save();
+    ctx.globalAlpha = p.alpha;
+    const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 2);
+    gradient.addColorStop(0, 'rgba(255,255,255,0.8)');
+    gradient.addColorStop(0.5, 'rgba(212,175,55,0.6)');
     gradient.addColorStop(1, 'rgba(212,175,55,0)');
     ctx.fillStyle = gradient;
-    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
     ctx.fill();
+    ctx.restore();
   }
 }
 
-/* main loop */
-let running = false;
-function tick(now){
-  if(!running) return;
-  update(now);
-  draw();
-  requestAnimationFrame(tick);
+function jarTick(now){
+  if(!jarRunning) return;
+  updateJarParticles(now);
+  drawJarParticles();
+  requestAnimationFrame(jarTick);
 }
 
-/* ========= soft sand sound with WebAudio ========= */
+/* ========= Christmas Music ========= */
 let audioCtx = null;
-let masterGain = null;
-let sandPlayers = [];
-function initAudio(){
-  if(audioCtx) return;
+let musicSource = null;
+let musicGain = null;
+
+function initMusic() {
+  if (audioCtx) return;
+  
   const AudioContext = window.AudioContext || window.webkitAudioContext;
   audioCtx = new AudioContext();
-  masterGain = audioCtx.createGain();
-  masterGain.gain.value = 0.14; // overall volume
-  masterGain.connect(audioCtx.destination);
+  musicGain = audioCtx.createGain();
+  musicGain.gain.value = 0.3;
+  musicGain.connect(audioCtx.destination);
 
-  // create gentle granular-ish events
-  function playSandBurst(intensity=1.0){
-    // create many tiny noise clicks with short filters
-    const bursts = Math.round(rand(6,14) * intensity);
-    for(let i=0;i<bursts;i++){
-      const timeOff = rand(0,0.14) + (i*0.01);
-      const osc = audioCtx.createBufferSource();
-      const buffer = audioCtx.createBuffer(1, 2200, audioCtx.sampleRate);
-      const data = buffer.getChannelData(0);
-      // fill buffer with random noise shaped
-      for(let j=0;j<data.length;j++){
-        data[j] = (Math.random()*2-1) * Math.exp(-j/700) * 0.5;
-      }
-      osc.buffer = buffer;
-      const filt = audioCtx.createBiquadFilter();
-      filt.type = 'bandpass';
-      filt.frequency.value = rand(800,2200);
-      filt.Q.value = rand(0.8,2.2);
-      const g = audioCtx.createGain();
-      g.gain.value = 0.06 * (0.8 + Math.random()*0.6) * intensity;
-      osc.connect(filt);
-      filt.connect(g);
-      g.connect(masterGain);
-      osc.start(audioCtx.currentTime + timeOff);
-      osc.stop(audioCtx.currentTime + timeOff + 0.25);
-    }
+  // Create a simple, gentle Christmas melody using Web Audio API
+  function playNote(frequency, duration, startTime, volume = 0.1) {
+    const osc = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    
+    osc.type = 'sine';
+    osc.frequency.value = frequency;
+    
+    gainNode.gain.value = volume;
+    gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+    
+    osc.connect(gainNode);
+    gainNode.connect(musicGain);
+    
+    osc.start(startTime);
+    osc.stop(startTime + duration);
   }
 
-  // ambient light rustle: schedule subtle periodic bursts
-  function scheduleLoop(){
-    playSandBurst(0.7);
-    setTimeout(()=>playSandBurst(0.5), rand(280,700));
-    setTimeout(()=>scheduleLoop(), rand(1200,2600));
-  }
-  // warm gentle hum underneath (very subtle)
-  const hum = audioCtx.createOscillator();
-  const humGain = audioCtx.createGain();
-  hum.type = 'sine';
-  hum.frequency.value = 120;
-  humGain.gain.value = 0.0025;
-  hum.connect(humGain);
-  humGain.connect(masterGain);
-  hum.start();
+  // "Silent Night" melody notes (simplified)
+  const melody = [
+    { note: 392, duration: 0.6 }, // G
+    { note: 349, duration: 0.6 }, // F
+    { note: 330, duration: 0.6 }, // E
+    { note: 392, duration: 0.6 }, // G
+    { note: 392, duration: 0.6 }, // G
+    { note: 349, duration: 0.6 }, // F
+    { note: 330, duration: 0.6 }, // E
+    { note: 294, duration: 0.6 }, // D
+    { note: 392, duration: 0.6 }, // G
+    { note: 392, duration: 0.6 }, // G
+    { note: 440, duration: 0.6 }, // A
+    { note: 392, duration: 0.6 }, // G
+    { note: 349, duration: 0.6 }, // F
+    { note: 330, duration: 0.6 }, // E
+    { note: 349, duration: 0.6 }, // F
+    { note: 392, duration: 0.6 }  // G
+  ];
 
-  scheduleLoop();
+  function scheduleMusic() {
+    const startTime = audioCtx.currentTime + 0.1;
+    melody.forEach((note, index) => {
+      playNote(note.note, note.duration, startTime + index * 0.7);
+    });
+    
+    // Repeat after melody finishes
+    setTimeout(scheduleMusic, melody.length * 700);
+  }
+
+  scheduleMusic();
 }
 
-/* ========= interaction & controls ========= */
-const overlay = document.getElementById('overlay');
-const startBtn = document.getElementById('startBtn');
+function playMusic() {
+  if (!audioCtx) {
+    initMusic();
+  } else if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+}
+
+/* ========= Envelope Interaction ========= */
+const envelopeContainer = document.getElementById('envelopeContainer');
+const envelope = document.getElementById('envelope');
+const seal = document.getElementById('seal');
+const cardContent = document.getElementById('cardContent');
+const jarContainer = document.getElementById('jarContainer');
 const replayBtn = document.getElementById('replayBtn');
 
-function startExperience(){
-  // start audio context and visuals
-  try{
-    initAudio();
-  }catch(e){ console.warn('audio init error', e); }
-  if(!running){
-    running = true;
-    last = performance.now();
-    requestAnimationFrame(tick);
-  }
-  // hide overlay
-  overlay.style.display = 'none';
-  // small immediate burst
-  try{ playOneBurst(); } catch(e){}
+let isOpened = false;
+
+function openEnvelope() {
+  if (isOpened) return;
+  
+  isOpened = true;
+  
+  // Add open class for flap animation
+  envelope.classList.add('open');
+  
+  // Show card content after a delay
+  setTimeout(() => {
+    cardContent.classList.add('show');
+    jarContainer.classList.add('show');
+    
+    // Start jar particles
+    fitCanvas();
+    jarRunning = true;
+    jarLast = performance.now();
+    jarTick(performance.now());
+    
+    // Start music
+    playMusic();
+  }, 600);
 }
 
-startBtn.addEventListener('click', (e)=>{
-  // resume audio context if suspended
-  if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-  startExperience();
+// Event listeners
+seal.addEventListener('click', openEnvelope);
+envelopeContainer.addEventListener('click', openEnvelope);
+replayBtn.addEventListener('click', playMusic);
+
+// Keyboard accessibility
+envelopeContainer.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    openEnvelope();
+  }
 });
 
-// replay sound button: give a small burst even if overlay closed
-replayBtn.addEventListener('click', (e)=>{
-  if(!audioCtx) initAudio();
-  if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-  playOneBurst();
-  // also emit some particles
-  for(let i=0;i<30;i++) emitBatch();
-});
+// Make envelope focusable for accessibility
+envelopeContainer.setAttribute('tabindex', '0');
 
-function playOneBurst(){
-  if(!audioCtx) return;
-  // a modest immediate sand burst
-  // call internal function defined above via scheduling small noise packets
-  // We'll approximate by calling initAudio's inner method by creating short noise sources:
-  const bursts = Math.round(rand(6,12));
-  for(let i=0;i<bursts;i++){
-    const timeOff = rand(0,0.06) + (i*0.006);
-    const osc = audioCtx.createBufferSource();
-    const buffer = audioCtx.createBuffer(1, 1600, audioCtx.sampleRate);
-    const data = buffer.getChannelData(0);
-    for(let j=0;j<data.length;j++){
-      data[j] = (Math.random()*2-1) * Math.exp(-j/400) * 0.6;
+/* ========= Initialize ========= */
+// Initial full page particles
+emitFullPageBatch(40);
+
+// Auto-fit canvas when jar becomes visible
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+      if (jarContainer.classList.contains('show')) {
+        setTimeout(fitCanvas, 100);
+      }
     }
-    osc.buffer = buffer;
-    const filt = audioCtx.createBiquadFilter();
-    filt.type = 'bandpass';
-    filt.frequency.value = rand(900,2600);
-    filt.Q.value = rand(0.7,2.4);
-    const g = audioCtx.createGain();
-    g.gain.value = 0.08 * (0.8 + Math.random()*0.6);
-    osc.connect(filt);
-    filt.connect(g);
-    g.connect(masterGain);
-    osc.start(audioCtx.currentTime + timeOff);
-    osc.stop(audioCtx.currentTime + timeOff + 0.28);
-  }
-}
-
-/* small random helper */
-function rand(min,max){ return Math.random()*(max-min)+min; }
-
-/* warm start: gently emit a few */
-for(let i=0;i<12;i++) emitBatch();
-
-/* allow overlay to be dismissed by tapping anywhere (mobile) */
-overlay.addEventListener('click', (e)=>{
-  if(e.target === overlay) startExperience();
+  });
 });
 
-/* unlock audio on first user interaction to satisfy mobile auto-play policies */
-document.addEventListener('touchstart', function unlock(){ 
-  if(!audioCtx) {
-    try{ initAudio(); }catch(e){}
-    if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+observer.observe(jarContainer, { attributes: true });
+
+// Handle window resize for jar canvas
+window.addEventListener('resize', () => {
+  if (jarRunning) {
+    fitCanvas();
   }
-  document.removeEventListener('touchstart', unlock);
-}, {passive:true});
-
-/* Accessibility: if user navigates with keyboard */
-startBtn.addEventListener('keydown', (ev)=>{ if(ev.key === 'Enter') startExperience(); });
-
+});
 </script>
 </body>
 </html>
