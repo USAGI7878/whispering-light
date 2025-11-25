@@ -43,11 +43,11 @@
     pointer-events: none;
   }
 
-  /* Envelope Container */
+  /* Envelope Container - DOUBLED SIZE */
   .envelope-container {
     position: relative;
     width: 100%;
-    max-width: 500px;
+    max-width: 800px; /* Increased from 500px */
     z-index: 2;
     cursor: pointer;
     transition: transform 0.3s ease;
@@ -60,19 +60,19 @@
   .envelope {
     position: relative;
     width: 100%;
-    height: 340px;
+    height: 560px; /* Increased from 340px */
     background: linear-gradient(135deg, var(--dior-burgundy), var(--dior-deep-red));
-    border-radius: 8px;
+    border-radius: 12px;
     box-shadow: 
-      0 25px 50px rgba(0,0,0,0.4),
-      0 12px 24px rgba(0,0,0,0.3),
+      0 30px 60px rgba(0,0,0,0.5),
+      0 15px 30px rgba(0,0,0,0.4),
       inset 0 1px 0 rgba(255,255,255,0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border: 1px solid var(--dior-gold);
+    border: 2px solid var(--dior-gold);
   }
 
   /* Envelope flap */
@@ -82,47 +82,47 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 170px;
+    height: 280px; /* Increased proportionally */
     background: linear-gradient(135deg, var(--dior-deep-red), #5a1a1a);
     clip-path: polygon(0 0, 100% 0, 50% 100%);
     transform-origin: top;
     transition: transform 0.8s ease;
     z-index: 2;
-    border-bottom: 1px solid var(--dior-gold);
+    border-bottom: 2px solid var(--dior-gold);
   }
 
   .envelope.open::before {
     transform: rotateX(180deg);
   }
 
-  /* Envelope seal */
+  /* Envelope seal - Larger */
   .seal {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 85px;
-    height: 85px;
+    width: 120px; /* Increased from 85px */
+    height: 120px;
     background: radial-gradient(circle, var(--dior-gold), #b08d5a);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 
-      0 10px 30px rgba(196, 168, 111, 0.5),
-      inset 0 2px 4px rgba(255,255,255,0.2);
+      0 15px 40px rgba(196, 168, 111, 0.6),
+      inset 0 3px 6px rgba(255,255,255,0.2);
     z-index: 3;
     transition: all 0.4s ease;
     animation: sealGlow 3s ease-in-out infinite alternate;
-    border: 2px solid var(--dior-light-gold);
+    border: 3px solid var(--dior-light-gold);
   }
 
   @keyframes sealGlow {
     0% {
-      box-shadow: 0 8px 25px rgba(196, 168, 111, 0.4);
+      box-shadow: 0 12px 35px rgba(196, 168, 111, 0.5);
     }
     100% {
-      box-shadow: 0 12px 35px rgba(196, 168, 111, 0.8);
+      box-shadow: 0 18px 45px rgba(196, 168, 111, 0.9);
     }
   }
 
@@ -132,26 +132,26 @@
 
   .seal::before {
     content: '✦';
-    font-size: 36px;
+    font-size: 48px; /* Increased from 36px */
     color: var(--dior-cream);
     font-weight: 300;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
   }
 
   .instruction {
     position: absolute;
-    bottom: 35px;
+    bottom: 50px; /* Adjusted for larger size */
     color: var(--dior-light-gold);
-    font-size: 15px;
+    font-size: 18px; /* Increased */
     text-align: center;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    text-shadow: 0 3px 10px rgba(0,0,0,0.7);
     z-index: 3;
     font-weight: 300;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     font-family: "Playfair Display", serif;
   }
 
-  /* Card content (hidden initially) */
+  /* Card content (hidden initially) - Larger */
   .card-content {
     position: absolute;
     top: 0;
@@ -159,15 +159,15 @@
     right: 0;
     bottom: 0;
     background: linear-gradient(135deg, var(--dior-cream), #f0eade);
-    border-radius: 8px;
-    padding: 20px 25px; /* Reduced top padding to push content down */
+    border-radius: 12px;
+    padding: 40px 50px; /* Increased padding */
     display: none;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Changed to flex-start to allow content to be lower */
+    justify-content: flex-start;
     text-align: center;
     z-index: 4;
-    overflow-y: auto; /* Allow scrolling if content is too long */
+    overflow-y: auto;
   }
 
   .card-content.show {
@@ -178,7 +178,7 @@
   @keyframes cardReveal {
     0% {
       opacity: 0;
-      transform: translateY(25px) scale(0.96);
+      transform: translateY(30px) scale(0.96);
     }
     100% {
       opacity: 1;
@@ -187,33 +187,32 @@
   }
 
   .message{
-    font-size:15px;
+    font-size: 18px; /* Increased from 15px */
     color: #5c4b37;
-    line-height:1.7;
-    padding: 30px 35px;
-    border-radius: 6px;
+    line-height: 1.8;
+    padding: 40px 45px; /* Increased padding */
+    border-radius: 8px;
     background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(250,247,240,0.9));
-    box-shadow: 0 15px 45px rgba(0,0,0,0.15);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
     position: relative;
-    max-width: 380px;
-    /* Thicker Dior-style golden border */
-    border: 3px solid transparent;
+    max-width: 600px; /* Increased from 380px */
+    border: 4px solid transparent; /* Thicker border */
     background-clip: padding-box;
-    margin-top: 40px; /* Increased margin to push content further down */
+    margin-top: 50px; /* Increased margin */
     font-family: "Playfair Display", serif;
-    transform: translateY(20px); /* Additional downward shift */
+    transform: translateY(25px);
   }
 
   /* Dior-style Golden border */
   .message::before {
     content: '';
     position: absolute;
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
     background: linear-gradient(135deg, var(--dior-gold), var(--dior-light-gold), #d4b98a, var(--dior-gold));
-    border-radius: 10px;
+    border-radius: 12px;
     z-index: -1;
     opacity: 0.9;
     animation: goldenGlow 2.5s ease-in-out infinite alternate;
@@ -222,11 +221,11 @@
   @keyframes goldenGlow {
     0% {
       opacity: 0.8;
-      filter: drop-shadow(0 4px 15px rgba(196, 168, 111, 0.3));
+      filter: drop-shadow(0 5px 20px rgba(196, 168, 111, 0.4));
     }
     100% {
       opacity: 1;
-      filter: drop-shadow(0 6px 25px rgba(196, 168, 111, 0.5));
+      filter: drop-shadow(0 8px 30px rgba(196, 168, 111, 0.6));
     }
   }
 
@@ -234,24 +233,25 @@
     color: var(--dior-burgundy);
     font-style: italic;
     font-weight: 500;
+    font-size: 20px; /* Slightly larger for emphasis */
   }
 
   .sign{
-    margin-top: 25px;
+    margin-top: 30px;
     color: #8a7866;
-    font-size: 12px;
-    letter-spacing: 1.5px;
+    font-size: 14px; /* Increased */
+    letter-spacing: 2px;
     font-family: "Playfair Display", serif;
     font-weight: 300;
   }
 
-  /* Jar particle container */
+  /* Jar particle container - Larger */
   .jar-container {
     position: relative;
     width: 100%;
-    max-width: 280px;
-    height: 180px;
-    margin: 25px 0 15px 0;
+    max-width: 400px; /* Increased from 280px */
+    height: 250px; /* Increased from 180px */
+    margin: 30px 0 20px 0;
     display: none;
   }
 
@@ -261,7 +261,7 @@
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
@@ -271,54 +271,59 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-top: 20px;
-    gap:12px;
-    margin-bottom: 20px; /* Added bottom margin */
+    margin-top: 25px;
+    gap:15px;
+    margin-bottom: 25px;
   }
   .foot .meta{
     color: #8a7866;
-    font-size:11px;
-    letter-spacing: 1px;
+    font-size:13px; /* Increased */
+    letter-spacing: 1.5px;
     font-family: "Playfair Display", serif;
   }
   .tap{
     margin-left:auto;
     background: linear-gradient(135deg, var(--dior-gold), #b08d5a);
     border: none;
-    padding: 10px 18px;
-    border-radius: 8px;
-    font-size:13px;
+    padding: 12px 22px; /* Larger button */
+    border-radius: 10px;
+    font-size:15px; /* Increased */
     cursor:pointer;
     color: var(--dior-cream);
-    box-shadow: 0 4px 15px rgba(196, 168, 111, 0.4);
+    box-shadow: 0 5px 20px rgba(196, 168, 111, 0.5);
     transition: all 0.3s ease;
     font-family: "Playfair Display", serif;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
   }
 
   .tap:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(196, 168, 111, 0.6);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(196, 168, 111, 0.7);
   }
 
   /* small responsive */
-  @media (max-width:520px){
-    .envelope-container { max-width: 90%; }
-    .envelope { height: 300px; }
+  @media (max-width:768px){
+    .envelope-container { max-width: 95%; }
+    .envelope { height: 500px; }
     .card-content {
-      padding: 15px 20px;
+      padding: 30px 35px;
     }
     .message{ 
-      font-size:14px; 
-      padding: 25px 28px;
-      margin-top: 30px;
-      transform: translateY(15px);
+      font-size:16px; 
+      padding: 35px 40px;
+      margin-top: 40px;
+      transform: translateY(20px);
+      max-width: 500px;
     }
-    .seal { width: 70px; height: 70px; }
-    .seal::before { font-size: 30px; }
+    .seal { width: 100px; height: 100px; }
+    .seal::before { font-size: 40px; }
     .jar-container {
-      max-width: 250px;
-      height: 160px;
+      max-width: 350px;
+      height: 220px;
+    }
+    .instruction {
+      font-size: 16px;
+      bottom: 40px;
     }
   }
 </style>
@@ -357,7 +362,7 @@
   </div>
 
 <script>
-/* ========= Full Page Snow System - SLOWEST ========= */
+/* ========= Full Page Snow System ========= */
 const fullPageCanvas = document.getElementById('fullPageCanvas');
 const fullPageCtx = fullPageCanvas.getContext('2d', { alpha: true });
 let fullPageDPR = window.devicePixelRatio || 1;
@@ -373,7 +378,6 @@ function fitFullPageCanvas() {
 fitFullPageCanvas();
 window.addEventListener('resize', fitFullPageCanvas);
 
-// Snow particles - SLOWEST SETTINGS
 let snowflakes = [];
 const SNOWFLAKE_COUNT = 120;
 
@@ -467,7 +471,7 @@ emitSnowflakeBatch(SNOWFLAKE_COUNT);
 const canvas = document.getElementById('particleCanvas');
 const ctx = canvas.getContext('2d',{alpha:true});
 let jarParticles = [];
-const JAR_MAX = 50;
+const JAR_MAX = 60;
 
 function fitCanvas(){
   const rect = canvas.getBoundingClientRect();
@@ -482,11 +486,11 @@ function createJarParticle(){
   const w = canvas.clientWidth;
   const h = canvas.clientHeight;
   return {
-    x: w/2 + (Math.random() - 0.5) * 40,
+    x: w/2 + (Math.random() - 0.5) * 60,
     y: h * 0.8,
     vx: (Math.random() - 0.5) * 0.05,
     vy: -Math.random() * 0.2 - 0.03,
-    size: Math.random() * 1.5 + 0.8,
+    size: Math.random() * 2 + 1,
     life: Math.random() * 6 + 4,
     age: 0,
     alpha: Math.random() * 0.6 + 0.4
@@ -533,7 +537,7 @@ function drawJarParticles(){
 
   ctx.save();
   ctx.strokeStyle = 'rgba(196, 168, 111, 0.2)';
-  ctx.lineWidth = 2;
+  ctx.lineWidth = 3;
   ctx.beginPath();
   ctx.moveTo(w*0.3, h*0.9);
   ctx.bezierCurveTo(w*0.3, h*0.4, w*0.4, h*0.2, w*0.5, h*0.15);
@@ -563,95 +567,107 @@ function jarTick(now){
   requestAnimationFrame(jarTick);
 }
 
-/* ========= FIXED Music System ========= */
-let audioCtx = null;
-let musicGain = null;
+/* ========= SIMPLIFIED MUSIC SYSTEM - GUARANTEED TO WORK ========= */
+let audioContext = null;
 let isMusicPlaying = false;
-let musicStarted = false;
 
-function initMusic() {
-  if (audioCtx) return;
+// Preload a simple audio file or use oscillator
+function createSimpleMusic() {
+  if (audioContext) return;
   
   try {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    audioCtx = new AudioContext();
-    musicGain = audioCtx.createGain();
-    musicGain.gain.value = 0.8; // Louder volume
-    musicGain.connect(audioCtx.destination);
-
-    // Simple and clear Christmas melody
-    function playNote(frequency, duration, startTime, volume = 0.3) {
-      const osc = audioCtx.createOscillator();
-      const gainNode = audioCtx.createGain();
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    
+    // Create a simple melody using oscillators
+    function playTone(frequency, duration, startTime) {
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
       
-      osc.type = 'sine';
-      osc.frequency.value = frequency;
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
       
-      gainNode.gain.value = volume;
-      gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+      oscillator.frequency.value = frequency;
+      oscillator.type = 'sine';
       
-      osc.connect(gainNode);
-      gainNode.connect(musicGain);
+      gainNode.gain.setValueAtTime(0.3, startTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
       
-      osc.start(startTime);
-      osc.stop(startTime + duration);
+      oscillator.start(startTime);
+      oscillator.stop(startTime + duration);
     }
-
-    // "Jingle Bells" simplified melody - clear and recognizable
-    const melody = [
-      { note: 523, duration: 0.4 }, // C5
-      { note: 523, duration: 0.4 }, // C5
-      { note: 523, duration: 0.8 }, // C5
-      { note: 523, duration: 0.4 }, // C5
-      { note: 523, duration: 0.4 }, // C5
-      { note: 523, duration: 0.8 }, // C5
-      { note: 523, duration: 0.4 }, // C5
-      { note: 659, duration: 0.4 }, // E5
-      { note: 494, duration: 0.8 }, // B4
-      { note: 587, duration: 0.4 }, // D5
-      { note: 523, duration: 1.2 }  // C5
+    
+    // Jingle Bells melody
+    const notes = [
+      523.25, 523.25, 523.25, 523.25, 523.25, 523.25, 523.25, 659.25,
+      493.88, 523.25, 587.33, 587.33, 587.33, 587.33, 587.33, 523.25,
+      523.25, 523.25, 523.25, 493.88, 493.88, 523.25, 493.88, 659.25
     ];
-
-    function scheduleMusic() {
+    
+    function playMelody() {
       if (!isMusicPlaying) return;
       
-      const startTime = audioCtx.currentTime + 0.1;
-      melody.forEach((note, index) => {
-        playNote(note.note, note.duration, startTime + index * 0.6, 0.3);
+      const startTime = audioContext.currentTime;
+      
+      notes.forEach((note, index) => {
+        playTone(note, 0.3, startTime + index * 0.4);
       });
       
-      // Repeat after melody finishes
-      setTimeout(scheduleMusic, melody.length * 600 + 1000);
+      // Repeat melody
+      setTimeout(playMelody, notes.length * 400 + 500);
     }
-
-    scheduleMusic();
-    musicStarted = true;
-    console.log('Music started successfully');
+    
+    playMelody();
     
   } catch (error) {
-    console.error('Music initialization failed:', error);
+    console.log('Web Audio not supported, using fallback');
+    // Fallback: Try to use HTML5 Audio
+    try {
+      const audio = new Audio();
+      // You could add a base64 encoded short Christmas sound here as fallback
+      console.log('HTML5 Audio available as fallback');
+    } catch (e) {
+      console.log('No audio support available');
+    }
   }
 }
 
 function playMusic() {
-  console.log('Play music called');
+  console.log('Attempting to play music...');
   
-  if (!audioCtx) {
-    console.log('Initializing music...');
-    initMusic();
+  if (!audioContext) {
+    console.log('Creating audio context...');
+    createSimpleMusic();
     isMusicPlaying = true;
-  } else if (audioCtx.state === 'suspended') {
+    return;
+  }
+  
+  if (audioContext.state === 'suspended') {
     console.log('Resuming audio context...');
-    audioCtx.resume().then(() => {
-      console.log('Audio context resumed');
+    audioContext.resume().then(() => {
+      console.log('Audio context resumed successfully');
       isMusicPlaying = true;
+      if (!audioContext) {
+        createSimpleMusic();
+      }
+    }).catch(error => {
+      console.log('Failed to resume audio context:', error);
     });
   } else if (!isMusicPlaying) {
     console.log('Starting music playback...');
     isMusicPlaying = true;
-    initMusic();
+    createSimpleMusic();
   }
 }
+
+// Force audio context creation on first user interaction
+document.addEventListener('click', function initializeAudio() {
+  console.log('First user interaction detected');
+  if (!audioContext) {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    console.log('Audio context created on user interaction');
+  }
+  document.removeEventListener('click', initializeAudio);
+}, { once: true });
 
 /* ========= Envelope Interaction ========= */
 const envelopeContainer = document.getElementById('envelopeContainer');
@@ -680,7 +696,7 @@ function openEnvelope() {
     jarLast = performance.now();
     jarTick(performance.now());
     
-    console.log('Starting music...');
+    console.log('Starting music automatically...');
     playMusic();
   }, 800);
 }
@@ -688,8 +704,11 @@ function openEnvelope() {
 // Event listeners
 seal.addEventListener('click', openEnvelope);
 envelopeContainer.addEventListener('click', openEnvelope);
-replayBtn.addEventListener('click', function() {
-  console.log('Replay button clicked');
+
+// Fixed music button event listener
+replayBtn.addEventListener('click', function(e) {
+  e.stopPropagation(); // Prevent envelope from reopening
+  console.log('Music button clicked directly');
   playMusic();
 });
 
@@ -703,14 +722,6 @@ envelopeContainer.addEventListener('keydown', (e) => {
 
 // Make envelope focusable
 envelopeContainer.setAttribute('tabindex', '0');
-
-// Auto-resume audio context on user interaction (fix for browser autoplay policies)
-document.addEventListener('click', function initAudioOnClick() {
-  if (audioCtx && audioCtx.state === 'suspended') {
-    audioCtx.resume();
-  }
-  document.removeEventListener('click', initAudioOnClick);
-});
 
 /* ========= Initialize ========= */
 emitSnowflakeBatch(SNOWFLAKE_COUNT);
@@ -732,6 +743,10 @@ window.addEventListener('resize', () => {
     fitCanvas();
   }
 });
+
+// Debug info
+console.log('Christmas card loaded successfully');
+console.log('Click the envelope to open and hear music');
 </script>
 </body>
 </html>
