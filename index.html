@@ -47,7 +47,7 @@
   .envelope-container {
     position: relative;
     width: 100%;
-    max-width: 800px; /* Increased from 500px */
+    max-width: 800px;
     z-index: 2;
     cursor: pointer;
     transition: transform 0.3s ease;
@@ -60,7 +60,7 @@
   .envelope {
     position: relative;
     width: 100%;
-    height: 560px; /* Increased from 340px */
+    height: 560px;
     background: linear-gradient(135deg, var(--dior-burgundy), var(--dior-deep-red));
     border-radius: 12px;
     box-shadow: 
@@ -82,7 +82,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 280px; /* Increased proportionally */
+    height: 280px;
     background: linear-gradient(135deg, var(--dior-deep-red), #5a1a1a);
     clip-path: polygon(0 0, 100% 0, 50% 100%);
     transform-origin: top;
@@ -101,7 +101,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 120px; /* Increased from 85px */
+    width: 120px;
     height: 120px;
     background: radial-gradient(circle, var(--dior-gold), #b08d5a);
     border-radius: 50%;
@@ -132,7 +132,7 @@
 
   .seal::before {
     content: '✦';
-    font-size: 48px; /* Increased from 36px */
+    font-size: 48px;
     color: var(--dior-cream);
     font-weight: 300;
     filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
@@ -140,9 +140,9 @@
 
   .instruction {
     position: absolute;
-    bottom: 50px; /* Adjusted for larger size */
+    bottom: 50px;
     color: var(--dior-light-gold);
-    font-size: 18px; /* Increased */
+    font-size: 18px;
     text-align: center;
     text-shadow: 0 3px 10px rgba(0,0,0,0.7);
     z-index: 3;
@@ -160,7 +160,7 @@
     bottom: 0;
     background: linear-gradient(135deg, var(--dior-cream), #f0eade);
     border-radius: 12px;
-    padding: 40px 50px; /* Increased padding */
+    padding: 40px 50px;
     display: none;
     flex-direction: column;
     align-items: center;
@@ -187,18 +187,18 @@
   }
 
   .message{
-    font-size: 18px; /* Increased from 15px */
+    font-size: 18px;
     color: #5c4b37;
     line-height: 1.8;
-    padding: 40px 45px; /* Increased padding */
+    padding: 40px 45px;
     border-radius: 8px;
     background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(250,247,240,0.9));
     box-shadow: 0 20px 50px rgba(0,0,0,0.2);
     position: relative;
-    max-width: 600px; /* Increased from 380px */
-    border: 4px solid transparent; /* Thicker border */
+    max-width: 600px;
+    border: 4px solid transparent;
     background-clip: padding-box;
-    margin-top: 50px; /* Increased margin */
+    margin-top: 50px;
     font-family: "Playfair Display", serif;
     transform: translateY(25px);
   }
@@ -233,13 +233,13 @@
     color: var(--dior-burgundy);
     font-style: italic;
     font-weight: 500;
-    font-size: 20px; /* Slightly larger for emphasis */
+    font-size: 20px;
   }
 
   .sign{
     margin-top: 30px;
     color: #8a7866;
-    font-size: 14px; /* Increased */
+    font-size: 14px;
     letter-spacing: 2px;
     font-family: "Playfair Display", serif;
     font-weight: 300;
@@ -249,8 +249,8 @@
   .jar-container {
     position: relative;
     width: 100%;
-    max-width: 400px; /* Increased from 280px */
-    height: 250px; /* Increased from 180px */
+    max-width: 400px;
+    height: 250px;
     margin: 30px 0 20px 0;
     display: none;
   }
@@ -265,40 +265,50 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Footer */
+  /* Footer - Centered music button */
   .foot{
     width:100%;
     display:flex;
-    justify-content:space-between;
+    justify-content: center; /* Center the button */
     align-items:center;
     margin-top: 25px;
     gap:15px;
     margin-bottom: 25px;
   }
-  .foot .meta{
-    color: #8a7866;
-    font-size:13px; /* Increased */
-    letter-spacing: 1.5px;
-    font-family: "Playfair Display", serif;
-  }
-  .tap{
-    margin-left:auto;
+
+  .music-button{
     background: linear-gradient(135deg, var(--dior-gold), #b08d5a);
     border: none;
-    padding: 12px 22px; /* Larger button */
-    border-radius: 10px;
-    font-size:15px; /* Increased */
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-size:16px;
     cursor:pointer;
     color: var(--dior-cream);
-    box-shadow: 0 5px 20px rgba(196, 168, 111, 0.5);
+    box-shadow: 0 6px 25px rgba(196, 168, 111, 0.5);
     transition: all 0.3s ease;
     font-family: "Playfair Display", serif;
     letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 160px;
+    justify-content: center;
   }
 
-  .tap:hover {
+  .music-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(196, 168, 111, 0.7);
+    box-shadow: 0 10px 30px rgba(196, 168, 111, 0.7);
+  }
+
+  .music-button.playing {
+    background: linear-gradient(135deg, #8b0000, var(--dior-burgundy));
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
   }
 
   /* small responsive */
@@ -324,6 +334,11 @@
     .instruction {
       font-size: 16px;
       bottom: 40px;
+    }
+    .music-button {
+      padding: 12px 25px;
+      font-size: 14px;
+      min-width: 140px;
     }
   }
 </style>
@@ -354,8 +369,10 @@
         </div>
 
         <div class="foot">
-          <div class="meta">DIOR CHRISTMAS 2025</div>
-          <button class="tap" id="replayBtn" aria-label="Replay music">🎵 PLAY MUSIC</button>
+          <button class="music-button" id="musicBtn">
+            <span class="music-icon">🎵</span>
+            <span class="music-text">Play Music</span>
+          </button>
         </div>
       </div>
     </div>
@@ -567,107 +584,172 @@ function jarTick(now){
   requestAnimationFrame(jarTick);
 }
 
-/* ========= SIMPLIFIED MUSIC SYSTEM - GUARANTEED TO WORK ========= */
+/* ========= LOFI CHRISTMAS MUSIC SYSTEM ========= */
 let audioContext = null;
-let isMusicPlaying = false;
+let isPlaying = false;
+let musicNodes = [];
 
-// Preload a simple audio file or use oscillator
-function createSimpleMusic() {
-  if (audioContext) return;
-  
-  try {
+function createLofiChristmasMusic() {
+  if (!audioContext) {
     audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    
-    // Create a simple melody using oscillators
-    function playTone(frequency, duration, startTime) {
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
-      
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-      
-      oscillator.frequency.value = frequency;
-      oscillator.type = 'sine';
-      
-      gainNode.gain.setValueAtTime(0.3, startTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
-      
-      oscillator.start(startTime);
-      oscillator.stop(startTime + duration);
-    }
-    
-    // Jingle Bells melody
-    const notes = [
-      523.25, 523.25, 523.25, 523.25, 523.25, 523.25, 523.25, 659.25,
-      493.88, 523.25, 587.33, 587.33, 587.33, 587.33, 587.33, 523.25,
-      523.25, 523.25, 523.25, 493.88, 493.88, 523.25, 493.88, 659.25
-    ];
-    
-    function playMelody() {
-      if (!isMusicPlaying) return;
-      
-      const startTime = audioContext.currentTime;
-      
-      notes.forEach((note, index) => {
-        playTone(note, 0.3, startTime + index * 0.4);
-      });
-      
-      // Repeat melody
-      setTimeout(playMelody, notes.length * 400 + 500);
-    }
-    
-    playMelody();
-    
-  } catch (error) {
-    console.log('Web Audio not supported, using fallback');
-    // Fallback: Try to use HTML5 Audio
-    try {
-      const audio = new Audio();
-      // You could add a base64 encoded short Christmas sound here as fallback
-      console.log('HTML5 Audio available as fallback');
-    } catch (e) {
-      console.log('No audio support available');
-    }
   }
+
+  // Clear previous nodes
+  musicNodes.forEach(node => {
+    if (node.stop) node.stop();
+    if (node.disconnect) node.disconnect();
+  });
+  musicNodes = [];
+
+  // Create main gain node
+  const masterGain = audioContext.createGain();
+  masterGain.gain.value = 0.4;
+  masterGain.connect(audioContext.destination);
+  musicNodes.push(masterGain);
+
+  // Lofi drum beat
+  function createKick(time) {
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(masterGain);
+    
+    oscillator.frequency.setValueAtTime(150, time);
+    oscillator.frequency.exponentialRampToValueAtTime(0.001, time + 0.5);
+    
+    gainNode.gain.setValueAtTime(0.6, time);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, time + 0.5);
+    
+    oscillator.start(time);
+    oscillator.stop(time + 0.5);
+    musicNodes.push(oscillator, gainNode);
+  }
+
+  // Lofi hi-hat
+  function createHiHat(time) {
+    const bufferSize = audioContext.sampleRate * 0.02;
+    const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+    const data = buffer.getChannelData(0);
+    
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+    
+    const source = audioContext.createBufferSource();
+    const gainNode = audioContext.createGain();
+    const filter = audioContext.createBiquadFilter();
+    
+    source.buffer = buffer;
+    filter.type = 'highpass';
+    filter.frequency.value = 7000;
+    
+    source.connect(filter);
+    filter.connect(gainNode);
+    gainNode.connect(masterGain);
+    
+    gainNode.gain.setValueAtTime(0.1, time);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, time + 0.1);
+    
+    source.start(time);
+    source.stop(time + 0.1);
+    musicNodes.push(source, gainNode, filter);
+  }
+
+  // Soft bell melody (Christmas vibe)
+  function createBell(note, time, duration) {
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    const filter = audioContext.createBiquadFilter();
+    
+    oscillator.connect(filter);
+    filter.connect(gainNode);
+    gainNode.connect(masterGain);
+    
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(note, time);
+    
+    filter.type = 'lowpass';
+    filter.frequency.value = 2000;
+    
+    gainNode.gain.setValueAtTime(0.3, time);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, time + duration);
+    
+    oscillator.start(time);
+    oscillator.stop(time + duration);
+    musicNodes.push(oscillator, gainNode, filter);
+  }
+
+  // Christmas melody notes (simplified Jingle Bells in lofi style)
+  const melody = [
+    523.25, 523.25, 523.25, 392, 392, 440, 440, 493.88,
+    523.25, 523.25, 523.25, 392, 392, 440, 440, 493.88
+  ];
+
+  // Start the music
+  const startTime = audioContext.currentTime + 0.1;
+  
+  // Drum loop
+  for (let i = 0; i < 32; i++) {
+    const time = startTime + i * 0.5;
+    createKick(time);
+    createHiHat(time + 0.25);
+  }
+
+  // Bell melody
+  melody.forEach((note, index) => {
+    createBell(note, startTime + index * 1, 0.8);
+  });
+
+  // Loop the music
+  setTimeout(() => {
+    if (isPlaying) {
+      createLofiChristmasMusic();
+    }
+  }, 16000); // 16 second loop
+
+  return true;
 }
 
-function playMusic() {
-  console.log('Attempting to play music...');
-  
-  if (!audioContext) {
-    console.log('Creating audio context...');
-    createSimpleMusic();
-    isMusicPlaying = true;
-    return;
-  }
-  
-  if (audioContext.state === 'suspended') {
-    console.log('Resuming audio context...');
-    audioContext.resume().then(() => {
-      console.log('Audio context resumed successfully');
-      isMusicPlaying = true;
-      if (!audioContext) {
-        createSimpleMusic();
-      }
-    }).catch(error => {
-      console.log('Failed to resume audio context:', error);
+function toggleMusic() {
+  const musicBtn = document.getElementById('musicBtn');
+  const musicText = musicBtn.querySelector('.music-text');
+  const musicIcon = musicBtn.querySelector('.music-icon');
+
+  if (!isPlaying) {
+    // Start music
+    if (!audioContext) {
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+    
+    createLofiChristmasMusic();
+    isPlaying = true;
+    
+    musicBtn.classList.add('playing');
+    musicText.textContent = 'Playing...';
+    musicIcon.textContent = '🎶';
+    
+    console.log('Lofi Christmas music started');
+  } else {
+    // Stop music
+    musicNodes.forEach(node => {
+      if (node.stop) node.stop();
+      if (node.disconnect) node.disconnect();
     });
-  } else if (!isMusicPlaying) {
-    console.log('Starting music playback...');
-    isMusicPlaying = true;
-    createSimpleMusic();
+    musicNodes = [];
+    isPlaying = false;
+    
+    musicBtn.classList.remove('playing');
+    musicText.textContent = 'Play Music';
+    musicIcon.textContent = '🎵';
+    
+    console.log('Music stopped');
   }
 }
-
-// Force audio context creation on first user interaction
-document.addEventListener('click', function initializeAudio() {
-  console.log('First user interaction detected');
-  if (!audioContext) {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    console.log('Audio context created on user interaction');
-  }
-  document.removeEventListener('click', initializeAudio);
-}, { once: true });
 
 /* ========= Envelope Interaction ========= */
 const envelopeContainer = document.getElementById('envelopeContainer');
@@ -675,7 +757,7 @@ const envelope = document.getElementById('envelope');
 const seal = document.getElementById('seal');
 const cardContent = document.getElementById('cardContent');
 const jarContainer = document.getElementById('jarContainer');
-const replayBtn = document.getElementById('replayBtn');
+const musicBtn = document.getElementById('musicBtn');
 
 let isOpened = false;
 
@@ -695,21 +777,15 @@ function openEnvelope() {
     jarRunning = true;
     jarLast = performance.now();
     jarTick(performance.now());
-    
-    console.log('Starting music automatically...');
-    playMusic();
   }, 800);
 }
 
 // Event listeners
 seal.addEventListener('click', openEnvelope);
 envelopeContainer.addEventListener('click', openEnvelope);
-
-// Fixed music button event listener
-replayBtn.addEventListener('click', function(e) {
-  e.stopPropagation(); // Prevent envelope from reopening
-  console.log('Music button clicked directly');
-  playMusic();
+musicBtn.addEventListener('click', function(e) {
+  e.stopPropagation();
+  toggleMusic();
 });
 
 // Keyboard accessibility
@@ -744,9 +820,15 @@ window.addEventListener('resize', () => {
   }
 });
 
-// Debug info
-console.log('Christmas card loaded successfully');
-console.log('Click the envelope to open and hear music');
+// Initialize audio context on first user interaction
+document.addEventListener('click', function initAudio() {
+  if (!audioContext) {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    console.log('Audio context initialized');
+  }
+}, { once: true });
+
+console.log('Christmas card loaded - Click envelope to open, then click music button for lofi beats!');
 </script>
 </body>
 </html>
