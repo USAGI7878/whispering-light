@@ -27,6 +27,19 @@
     justify-content:center;
     padding:24px;
     box-sizing:border-box;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Full page particle canvas */
+  #fullPageCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
   }
 
   .card{
@@ -43,6 +56,9 @@
     align-items:center;
     padding:36px 30px;
     box-sizing:border-box;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
   /* header */
@@ -95,10 +111,39 @@
     font-size:16px;
     color:#222;
     line-height:1.6;
-    padding: 18px 30px;
-    border-radius:12px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
-    box-shadow: 0 6px 18px rgba(20,20,20,0.03);
+    padding: 24px 32px;
+    border-radius:16px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));
+    box-shadow: 0 8px 32px rgba(20,20,20,0.08);
+    position: relative;
+    z-index: 1;
+    /* Golden border effect */
+    border: 1.5px solid transparent;
+    background-clip: padding-box;
+  }
+
+  /* Golden border using pseudo-element */
+  .message::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, var(--gold-1), var(--gold-2), var(--gold-1));
+    border-radius: 18px;
+    z-index: -1;
+    opacity: 0.4;
+    animation: goldenGlow 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes goldenGlow {
+    0% {
+      opacity: 0.3;
+    }
+    100% {
+      opacity: 0.6;
+    }
   }
 
   .sign{
@@ -182,11 +227,14 @@
     .card{ padding:20px; min-height:520px; }
     .bottle-wrap{ height:300px; }
     h1{ font-size:18px;}
-    .message{ font-size:15px; padding:14px; }
+    .message{ font-size:15px; padding:18px; }
   }
 </style>
 </head>
 <body>
+  <!-- Full page particle canvas -->
+  <canvas id="fullPageCanvas"></canvas>
+
   <div class="card" role="main" aria-label="Whispering Light in a Clear Winter">
     <div class="top" aria-hidden="true">
       <div class="icon" aria-hidden="true">
@@ -228,7 +276,112 @@
   </div>
 
 <script>
-/* ========= Particle (gold sand) system ========= */
+/* ========= Full Page Particle System ========= */
+const fullPageCanvas = document.getElementById('fullPageCanvas');
+const fullPageCtx = fullPageCanvas.getContext('2d', { alpha: true });
+let fullPageDPR = window.devicePixelRatio || 1;
+
+function fitFullPageCanvas() {
+  fullPageCanvas.width = Math.floor(window.innerWidth * fullPageDPR);
+  fullPageCanvas.height = Math.floor(window.innerHeight * fullPageDPR);
+  fullPageCanvas.style.width = window.innerWidth + 'px';
+  fullPageCanvas.style.height = window.innerHeight + 'px';
+  fullPageCtx.setTransform(fullPageDPR, 0, 0, fullPageDPR, 0, 0);
+}
+
+fitFullPageCanvas();
+window.addEventListener('resize', fitFullPageCanvas);
+
+// Full page particles
+let fullPageParticles = [];
+const FULL_PAGE_MAX = 200;
+
+function createFullPageParticle() {
+  return {
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    size: Math.random() * 2 + 0.5,
+    life: Math.random() * 8 + 4,
+    age: 0,
+    alpha: Math.random() * 0.4 + 0.3,
+    hue: Math.random() * 10 + 38 // golden hue
+  };
+}
+
+function emitFullPageBatch(count = 10) {
+  for (let i = 0; i < count; i++) {
+    if (fullPageParticles.length < FULL_PAGE_MAX) {
+      fullPageParticles.push(createFullPageParticle());
+    }
+  }
+}
+
+let fullPageLast = performance.now();
+function updateFullPageParticles(now) {
+  const dt = (now - fullPageLast) / 1000;
+  fullPageLast = now;
+
+  // Occasional emission
+  if (Math.random() < 0.3) {
+    emitFullPageBatch(2);
+  }
+
+  // Update particles
+  for (let i = fullPageParticles.length - 1; i >= 0; i--) {
+    let p = fullPageParticles[i];
+    p.age += dt;
+    p.x += p.vx;
+    p.y += p.vy;
+    
+    // Bounce off edges
+    if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
+    if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
+    
+    p.alpha *= 0.998;
+    if (p.age > p.life || p.alpha < 0.05) {
+      fullPageParticles.splice(i, 1);
+    }
+  }
+}
+
+function drawFullPageParticles() {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  
+  // Clear with subtle fade effect for trails
+  fullPageCtx.fillStyle = 'rgba(255, 250, 240, 0.05)';
+  fullPageCtx.fillRect(0, 0, w, h);
+
+  // Draw particles
+  for (let p of fullPageParticles) {
+    fullPageCtx.beginPath();
+    const gradient = fullPageCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3);
+    const gold = `rgba(212,175,55,${p.alpha})`;
+    gradient.addColorStop(0, 'rgba(255,255,255,' + (p.alpha * 0.8) + ')');
+    gradient.addColorStop(0.3, gold);
+    gradient.addColorStop(1, 'rgba(212,175,55,0)');
+    fullPageCtx.fillStyle = gradient;
+    fullPageCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    fullPageCtx.fill();
+  }
+}
+
+// Full page animation loop
+let fullPageRunning = true;
+function fullPageTick(now) {
+  if (!fullPageRunning) return;
+  updateFullPageParticles(now);
+  drawFullPageParticles();
+  requestAnimationFrame(fullPageTick);
+}
+
+// Start full page particles
+fullPageTick(performance.now());
+emitFullPageBatch(50);
+
+/* ========= Original Jar Particle System ========= */
 const canvas = document.getElementById('particleCanvas');
 const ctx = canvas.getContext('2d',{alpha:true});
 let DPR = window.devicePixelRatio || 1;
