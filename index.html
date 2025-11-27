@@ -264,59 +264,54 @@
     font-weight: 300;
   }
 
-  /* Jar particle container */
-  .jar-container {
+  /* 右上角音乐按钮容器 */
+  .top-controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 5;
+  }
+
+  /* 小型金色粒子容器 */
+  .mini-jar-container {
     position: relative;
-    width: 100%;
-    max-width: 400px;
-    height: 250px;
-    margin: 30px 0 20px 0;
+    width: 80px;
+    height: 80px;
     display: none;
   }
 
-  .jar-container.show {
+  .mini-jar-container.show {
     display: block;
     animation: fadeIn 1.2s ease-out;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Footer - Centered music button */
-  .foot{
-    width:100%;
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    margin-top: 25px;
-    gap:15px;
-    margin-bottom: 25px;
-  }
-
+  /* 音乐按钮 - 右上角 */
   .music-button{
     background: linear-gradient(135deg, var(--gold), #b08d5a);
     border: none;
-    padding: 15px 30px;
-    border-radius: 12px;
-    font-size:16px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size:14px;
     cursor:pointer;
     color: var(--cream);
-    box-shadow: 0 6px 25px rgba(196, 168, 111, 0.5);
+    box-shadow: 0 4px 15px rgba(196, 168, 111, 0.5);
     transition: all 0.3s ease;
     font-family: "Playfair Display", serif;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    min-width: 160px;
+    gap: 6px;
+    min-width: 120px;
     justify-content: center;
+    z-index: 6;
   }
 
   .music-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(196, 168, 111, 0.7);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(196, 168, 111, 0.7);
   }
 
   .music-button.playing {
@@ -328,6 +323,11 @@
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   /* 桌面端特定修复 */
@@ -373,18 +373,19 @@
     .seal::before { 
       font-size: 40px; 
     }
-    .jar-container {
-      max-width: 350px;
-      height: 220px;
+    .top-controls {
+      top: 15px;
+      right: 15px;
+      gap: 10px;
     }
-    .instruction {
-      font-size: 16px;
-      bottom: 40px;
+    .mini-jar-container {
+      width: 60px;
+      height: 60px;
     }
     .music-button {
-      padding: 12px 25px;
-      font-size: 14px;
-      min-width: 140px;
+      padding: 8px 16px;
+      font-size: 12px;
+      min-width: 100px;
     }
   }
 
@@ -410,13 +411,19 @@
     .seal::before { 
       font-size: 36px; 
     }
-    .jar-container {
-      max-width: 300px;
-      height: 200px;
+    .top-controls {
+      top: 10px;
+      right: 10px;
+      gap: 8px;
     }
-    .instruction {
-      font-size: 14px;
-      bottom: 35px;
+    .mini-jar-container {
+      width: 50px;
+      height: 50px;
+    }
+    .music-button {
+      padding: 6px 12px;
+      font-size: 11px;
+      min-width: 90px;
     }
   }
 
@@ -442,30 +449,31 @@
       
       <!-- Card content (hidden initially) -->
       <div class="card-content" id="cardContent">
+        <!-- 右上角控制区域 -->
+        <div class="top-controls">
+          <!-- 小型金色粒子效果 -->
+          <div class="mini-jar-container" id="miniJarContainer">
+            <canvas id="miniParticleCanvas"></canvas>
+          </div>
+          <!-- 音乐按钮 -->
+          <button class="music-button" id="musicBtn">
+            <span class="music-icon">🎵</span>
+            <span class="music-text">Play Music</span>
+          </button>
+        </div>
+
         <div class="message">
           <em>"Transparency is not emptiness, but a way to hold light."</em><br><br>
           Merry Christmas 🎄<br>
           Thank you for walking through the busy times and unexpected challenges together this year. Those rare moments of warmth also shine in my heart. I hope this little light can gently remind you when you need it: you deserve to be treated with kindness.<br><br>
           — Peggy · 2025
         </div>
-
-        <!-- Jar particle effect -->
-        <div class="jar-container" id="jarContainer">
-          <canvas id="particleCanvas"></canvas>
-        </div>
-
-        <div class="foot">
-          <button class="music-button" id="musicBtn">
-            <span class="music-icon">🎵</span>
-            <span class="music-text">Play Music</span>
-          </button>
-        </div>
       </div>
     </div>
   </div>
 
 <script>
-// JavaScript 代码保持不变
+// 保持原有的雪花系统不变
 /* ========= Full Page Snow System ========= */
 const fullPageCanvas = document.getElementById('fullPageCanvas');
 const fullPageCtx = fullPageCanvas.getContext('2d', { alpha: true });
@@ -571,104 +579,106 @@ function snowTick(now) {
 snowTick(performance.now());
 emitSnowflakeBatch(SNOWFLAKE_COUNT);
 
-/* ========= Jar Particle System ========= */
-const canvas = document.getElementById('particleCanvas');
-const ctx = canvas.getContext('2d',{alpha:true});
-let jarParticles = [];
-const JAR_MAX = 60;
+/* ========= 小型金色粒子系统 ========= */
+const miniCanvas = document.getElementById('miniParticleCanvas');
+const miniCtx = miniCanvas.getContext('2d',{alpha:true});
+let miniParticles = [];
+const MINI_JAR_MAX = 25;
 
-function fitCanvas(){
-  const rect = canvas.getBoundingClientRect();
-  canvas.width = Math.floor(rect.width * fullPageDPR);
-  canvas.height = Math.floor(rect.height * fullPageDPR);
-  canvas.style.width = rect.width + 'px';
-  canvas.style.height = rect.height + 'px';
-  ctx.setTransform(fullPageDPR,0,0,fullPageDPR,0,0);
+function fitMiniCanvas(){
+  const rect = miniCanvas.getBoundingClientRect();
+  miniCanvas.width = Math.floor(rect.width * fullPageDPR);
+  miniCanvas.height = Math.floor(rect.height * fullPageDPR);
+  miniCanvas.style.width = rect.width + 'px';
+  miniCanvas.style.height = rect.height + 'px';
+  miniCtx.setTransform(fullPageDPR,0,0,fullPageDPR,0,0);
 }
 
-function createJarParticle(){
-  const w = canvas.clientWidth;
-  const h = canvas.clientHeight;
+function createMiniParticle(){
+  const w = miniCanvas.clientWidth;
+  const h = miniCanvas.clientHeight;
   return {
-    x: w/2 + (Math.random() - 0.5) * 60,
-    y: h * 0.8,
-    vx: (Math.random() - 0.5) * 0.05,
-    vy: -Math.random() * 0.2 - 0.03,
-    size: Math.random() * 2 + 1,
-    life: Math.random() * 6 + 4,
+    x: w/2 + (Math.random() - 0.5) * 20,
+    y: h * 0.7,
+    vx: (Math.random() - 0.5) * 0.03,
+    vy: -Math.random() * 0.15 - 0.02,
+    size: Math.random() * 1 + 0.5,
+    life: Math.random() * 4 + 2,
     age: 0,
     alpha: Math.random() * 0.6 + 0.4
   };
 }
 
-function emitJarBatch(){
-  if (!jarRunning) return;
-  for(let i=0;i<2;i++){
-    if(jarParticles.length < JAR_MAX) {
-      jarParticles.push(createJarParticle());
+function emitMiniBatch(){
+  if (!miniRunning) return;
+  for(let i=0;i<1;i++){
+    if(miniParticles.length < MINI_JAR_MAX) {
+      miniParticles.push(createMiniParticle());
     }
   }
 }
 
-let jarLast = performance.now();
-let jarRunning = false;
+let miniLast = performance.now();
+let miniRunning = false;
 
-function updateJarParticles(now){
-  if (!jarRunning) return;
-  const dt = (now - jarLast) / 1000;
-  jarLast = now;
+function updateMiniParticles(now){
+  if (!miniRunning) return;
+  const dt = (now - miniLast) / 1000;
+  miniLast = now;
 
-  if(Math.random() < 0.4) emitJarBatch();
+  if(Math.random() < 0.3) emitMiniBatch();
 
-  for(let i=jarParticles.length-1;i>=0;i--){
-    let p = jarParticles[i];
+  for(let i=miniParticles.length-1;i>=0;i--){
+    let p = miniParticles[i];
     p.age += dt;
     p.x += p.vx;
     p.y += p.vy;
-    p.vy += 0.005;
-    p.alpha *= 0.997;
+    p.vy += 0.003;
+    p.alpha *= 0.998;
     
-    if(p.age > p.life || p.alpha < 0.05 || p.y < -10) {
-      jarParticles.splice(i,1);
+    if(p.age > p.life || p.alpha < 0.05 || p.y < -5) {
+      miniParticles.splice(i,1);
     }
   }
 }
 
-function drawJarParticles(){
-  const w = canvas.clientWidth;
-  const h = canvas.clientHeight;
-  ctx.clearRect(0,0,w,h);
+function drawMiniParticles(){
+  const w = miniCanvas.clientWidth;
+  const h = miniCanvas.clientHeight;
+  miniCtx.clearRect(0,0,w,h);
 
-  ctx.save();
-  ctx.strokeStyle = 'rgba(196, 168, 111, 0.2)';
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.moveTo(w*0.3, h*0.9);
-  ctx.bezierCurveTo(w*0.3, h*0.4, w*0.4, h*0.2, w*0.5, h*0.15);
-  ctx.bezierCurveTo(w*0.6, h*0.2, w*0.7, h*0.4, w*0.7, h*0.9);
-  ctx.stroke();
-  ctx.restore();
+  // 绘制小型罐子轮廓
+  miniCtx.save();
+  miniCtx.strokeStyle = 'rgba(196, 168, 111, 0.15)';
+  miniCtx.lineWidth = 1.5;
+  miniCtx.beginPath();
+  miniCtx.moveTo(w*0.3, h*0.85);
+  miniCtx.bezierCurveTo(w*0.3, h*0.4, w*0.4, h*0.2, w*0.5, h*0.15);
+  miniCtx.bezierCurveTo(w*0.6, h*0.2, w*0.7, h*0.4, w*0.7, h*0.85);
+  miniCtx.stroke();
+  miniCtx.restore();
 
-  for(let p of jarParticles){
-    ctx.save();
-    ctx.globalAlpha = p.alpha;
-    const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 2);
+  // 绘制小型粒子
+  for(let p of miniParticles){
+    miniCtx.save();
+    miniCtx.globalAlpha = p.alpha;
+    const gradient = miniCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 1.5);
     gradient.addColorStop(0, 'rgba(255,255,255,0.9)');
-    gradient.addColorStop(0.4, 'rgba(196, 168, 111, 0.7)');
+    gradient.addColorStop(0.4, 'rgba(196, 168, 111, 0.6)');
     gradient.addColorStop(1, 'rgba(196, 168, 111, 0)');
-    ctx.fillStyle = gradient;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
+    miniCtx.fillStyle = gradient;
+    miniCtx.beginPath();
+    miniCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    miniCtx.fill();
+    miniCtx.restore();
   }
 }
 
-function jarTick(now){
-  if(!jarRunning) return;
-  updateJarParticles(now);
-  drawJarParticles();
-  requestAnimationFrame(jarTick);
+function miniTick(now){
+  if(!miniRunning) return;
+  updateMiniParticles(now);
+  drawMiniParticles();
+  requestAnimationFrame(miniTick);
 }
 
 /* ========= LOFI CHRISTMAS MUSIC SYSTEM ========= */
@@ -843,7 +853,7 @@ const envelopeContainer = document.getElementById('envelopeContainer');
 const envelope = document.getElementById('envelope');
 const seal = document.getElementById('seal');
 const cardContent = document.getElementById('cardContent');
-const jarContainer = document.getElementById('jarContainer');
+const miniJarContainer = document.getElementById('miniJarContainer');
 const musicBtn = document.getElementById('musicBtn');
 
 let isOpened = false;
@@ -858,12 +868,13 @@ function openEnvelope() {
   
   setTimeout(() => {
     cardContent.classList.add('show');
-    jarContainer.classList.add('show');
+    miniJarContainer.classList.add('show');
     
-    fitCanvas();
-    jarRunning = true;
-    jarLast = performance.now();
-    jarTick(performance.now());
+    // 启动小型粒子系统
+    fitMiniCanvas();
+    miniRunning = true;
+    miniLast = performance.now();
+    miniTick(performance.now());
   }, 800);
 }
 
@@ -889,21 +900,22 @@ envelopeContainer.setAttribute('tabindex', '0');
 /* ========= Initialize ========= */
 emitSnowflakeBatch(SNOWFLAKE_COUNT);
 
-const observer = new MutationObserver((mutations) => {
+// 监听小型粒子容器的显示
+const miniObserver = new MutationObserver((mutations) => {
   mutations.forEach((mutation) => {
     if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-      if (jarContainer.classList.contains('show')) {
-        setTimeout(fitCanvas, 100);
+      if (miniJarContainer.classList.contains('show')) {
+        setTimeout(fitMiniCanvas, 100);
       }
     }
   });
 });
 
-observer.observe(jarContainer, { attributes: true });
+miniObserver.observe(miniJarContainer, { attributes: true });
 
 window.addEventListener('resize', () => {
-  if (jarRunning) {
-    fitCanvas();
+  if (miniRunning) {
+    fitMiniCanvas();
   }
 });
 
