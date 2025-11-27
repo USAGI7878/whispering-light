@@ -1,81 +1,79 @@
 # Whispering Light in a Clear Winter
 
-A beautiful, interactive Christmas e-card with elegant Dior-inspired design, gentle snowfall, and relaxing lofi music. Perfect for sharing warm holiday wishes with colleagues and friends.
+A beautiful, interactive Christmas e-card with elegant design, gentle snowfall, and relaxing lofi music. Perfect for sharing warm holiday wishes with colleagues and friends.
 
 ## Features
 
-- **Elegant Envelope Design**: Dior-inspired luxury Christmas theme with golden accents
+- **Elegant Envelope Design**: Luxury Christmas theme with golden accents
 - **Gentle Snowfall**: Realistic slow-falling snow animation across the entire page
-- **Interactive Particles**: Golden particle effects that activate when opening the card
+- **Interactive Particles**: Golden particle effects triggered upon opening the card
 - **Lofi Christmas Music**: Relaxing background music with toggle control
-- **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
+- **Responsive Design**: Works well on desktop, tablet, and mobile devices
 - **Accessible**: Keyboard navigation and screen reader friendly
 - **Smooth Animations**: Beautiful transitions and micro-interactions
 
+---
+
 ## Quick Start
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/christmas-card.git
-Open the card
-
-Simply open index.html in your web browser
+### 1. Clone the repository
+git clone https://github.com/your-username/christmas-card.git
+##2. Open the card
+Open index.html in your browser
 
 Or host it on any web server
 
-Experience the magic
-
+##3. Experience the magic
 Click the golden seal to open the envelope
 
-Enjoy the animated particles and message
+Enjoy particles and greeting message
 
-Click the music button for relaxing lofi Christmas tunes
+Click the music button for relaxing Christmas lofi
 
-How to Use
+##How to Use
 For Personal Use
-Customize the message in the card-content section
+Edit the greeting message in the card-content section
 
-Modify the sender name and year
+Update sender name and year
 
-Share the link with your colleagues and friends
+Share with colleagues and friends
 
-For Developers
-The project uses vanilla HTML, CSS, and JavaScript with:
+##For Developers
+Technologies used:
 
 Canvas API for particle effects
 
 Web Audio API for music
 
-CSS animations and gradients
+CSS animations & gradients
 
-Modern responsive design principles
+Fully responsive layout
 
-Customization
-Changing the Message
-Edit the text inside the .message div in index.html:
-
+##Customization
+Change the Message
 html
+Copy code
 <div class="message">
   <em>"Your custom quote here"</em><br><br>
   Your holiday message...<br><br>
   — Your Name · 2025
 </div>
-Modifying Colors
-Update the CSS variables in the :root selector:
-
+Modify Theme Colors
 css
+Copy code
 :root {
-  --dior-gold: #c4a86f;
-  --dior-deep-red: #8b0000;
-  --dior-burgundy: #722f37;
-  /* Add your custom colors */
+  --gold: #c4a86f;
+  --deep-red: #8b0000;
+  --burgundy: #722f37;
+  --cream: #f5f1e6;
+  --dark-blue: #021E47;
+  --light-gold: #e6d7b8;
 }
-Adjusting Snowfall
-Modify the snow parameters in the JavaScript:
-
+Adjust Snowfall Settings
 javascript
-const SNOWFLAKE_COUNT = 120; // Number of snowflakes
-vy: Math.random() * 0.3 + 0.1, // Falling speed
+Copy code
+const SNOWFLAKE_COUNT = 120;     // number of snowflakes
+vy: Math.random() * 0.3 + 0.1;   // falling speed
 Browser Support
 Chrome 60+
 
@@ -85,53 +83,62 @@ Safari 12+
 
 Edge 79+
 
-Note: Web Audio API requires user interaction to start playback (browser security policy)
+Web Audio API requires user interaction before music playback.
 
 Project Structure
-text
+markdown
+Copy code
 christmas-card/
-├── index.html          # Main HTML file
-├── README.md          # Project documentation
-└── assets/            # (Optional) Additional assets
+├── index.html
+├── README.md
+└── assets/
     ├── images/
     └── fonts/
 Music Features
-Lofi Christmas beats with gentle drums and bells
+Lofi Christmas beats with gentle bells
 
-Toggle control - play/pause with visual feedback
+Play/pause toggle with animation
 
-Web Audio API for smooth, synthesized music
+Smooth Web Audio API handling
 
-Looping playback for continuous ambiance
+Looping playback for ambiance
 
 Perfect For
-Company holiday greetings
+Corporate holiday greetings
 
 Personal Christmas wishes
 
-Virtual holiday parties
+Virtual celebrations
 
 Social media sharing
 
 Email newsletters
 
 Contributing
-Feel free to fork this project and create your own customized Christmas cards! Some ideas:
+You’re welcome to fork and customize:
 
-Add different color themes
+New color themes
 
-Create custom animations
+Additional animations
 
-Add more interactive elements
+More interactive elements
 
-Implement different music styles
+Different music tracks
 
 License
-This project is open source and available under the MIT License.
+Released under the MIT License.
 
 Credits
-Created with care for the 2025 holiday season. Perfect for spreading warmth and kindness during the Christmas period.
-
-If you like this project, please give it a star on GitHub.
+Created with care for the 2025 holiday season.
+If you enjoy this project, please consider giving it a ⭐ on GitHub.
 
 May your holidays be filled with warmth and light.
+
+Major Updates
+Removed all “Dior-inspired” / “Dior” wording
+
+Updated CSS variables (removed dior- prefix)
+
+Kept all technical and usage details
+
+More neutral & professional tone
