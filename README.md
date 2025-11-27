@@ -17,50 +17,50 @@ A beautiful, interactive Christmas e-card with elegant design, gentle snowfall, 
 ## Quick Start
 
 ### 1. Clone the repository
+```bash
 git clone https://github.com/your-username/christmas-card.git
-##2. Open the card
-Open index.html in your browser
+```
 
-Or host it on any web server
+### 2. Open the card
+- Open **index.html** in your browser  
+- Or host it on any web server  
 
-##3. Experience the magic
-Click the golden seal to open the envelope
+### 3. Experience the magic
+- Click the golden seal to open the envelope  
+- Enjoy particles and greeting message  
+- Click the music button for relaxing Christmas lofi  
 
-Enjoy particles and greeting message
+---
 
-Click the music button for relaxing Christmas lofi
+## How to Use
 
-##How to Use
-For Personal Use
-Edit the greeting message in the card-content section
+### For Personal Use
+- Edit the greeting message in the **card-content** section  
+- Update sender name and year  
+- Share with colleagues and friends  
 
-Update sender name and year
-
-Share with colleagues and friends
-
-##For Developers
+### For Developers
 Technologies used:
+- Canvas API for particle effects  
+- Web Audio API for music  
+- CSS animations & gradients  
+- Fully responsive layout  
 
-Canvas API for particle effects
+---
 
-Web Audio API for music
+## Customization
 
-CSS animations & gradients
-
-Fully responsive layout
-
-##Customization
-Change the Message
-html
-Copy code
+### Change the Message
+```html
 <div class="message">
   <em>"Your custom quote here"</em><br><br>
   Your holiday message...<br><br>
   — Your Name · 2025
 </div>
-Modify Theme Colors
-css
-Copy code
+```
+
+### Modify Theme Colors
+```css
 :root {
   --gold: #c4a86f;
   --deep-red: #8b0000;
@@ -69,76 +69,85 @@ Copy code
   --dark-blue: #021E47;
   --light-gold: #e6d7b8;
 }
-Adjust Snowfall Settings
-javascript
-Copy code
+```
+
+### Adjust Snowfall Settings
+```javascript
 const SNOWFLAKE_COUNT = 120;     // number of snowflakes
 vy: Math.random() * 0.3 + 0.1;   // falling speed
-Browser Support
-Chrome 60+
+```
 
-Firefox 55+
+---
 
-Safari 12+
+## Browser Support
 
-Edge 79+
+- Chrome 60+
+- Firefox 55+
+- Safari 12+
+- Edge 79+
 
-Web Audio API requires user interaction before music playback.
+> Web Audio API requires user interaction before music playback.
 
-Project Structure
-markdown
-Copy code
+---
+
+## Project Structure
+```
 christmas-card/
 ├── index.html
 ├── README.md
 └── assets/
     ├── images/
     └── fonts/
-Music Features
-Lofi Christmas beats with gentle bells
+```
 
-Play/pause toggle with animation
+---
 
-Smooth Web Audio API handling
+## Music Features
 
-Looping playback for ambiance
+- Lofi Christmas beats with gentle bells  
+- Play/pause toggle with animation  
+- Smooth Web Audio API handling  
+- Looping playback for ambiance  
 
-Perfect For
-Corporate holiday greetings
+---
 
-Personal Christmas wishes
+## Perfect For
 
-Virtual celebrations
+- Corporate holiday greetings  
+- Personal Christmas wishes  
+- Virtual celebrations  
+- Social media sharing  
+- Email newsletters  
 
-Social media sharing
+---
 
-Email newsletters
+## Contributing
 
-Contributing
 You’re welcome to fork and customize:
+- New color themes  
+- Additional animations  
+- More interactive elements  
+- Different music tracks  
 
-New color themes
+---
 
-Additional animations
+## License
 
-More interactive elements
+Released under the **MIT License**.
 
-Different music tracks
+---
 
-License
-Released under the MIT License.
+## Credits
 
-Credits
-Created with care for the 2025 holiday season.
+Created with care for the 2025 holiday season.  
 If you enjoy this project, please consider giving it a ⭐ on GitHub.
 
-May your holidays be filled with warmth and light.
+**May your holidays be filled with warmth and light.**
 
-Major Updates
-Removed all “Dior-inspired” / “Dior” wording
+---
 
-Updated CSS variables (removed dior- prefix)
-
-Kept all technical and usage details
-
-More neutral & professional tone
+### Major Updates
+- Removed all “Dior-inspired” / “Dior” wording  
+- Updated CSS variables (removed dior- prefix)  
+- Kept technical details  
+- More neutral & professional tone  
