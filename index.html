@@ -8,12 +8,12 @@
 <style>
   :root{
     /* Christmas Theme Colors */
-    --dior-gold: #c4a86f;
-    --dior-deep-red: #8b0000;
-    --dior-burgundy: #722f37;
-    --dior-cream: #f5f1e6;
-    --dior-dark: #04122E;
-    --dior-light-gold: #e6d7b8;
+    --gold: #c4a86f;
+    --deep-red: #8b0000;
+    --burgundy: #722f37;
+    --cream: #f5f1e6;
+    --dark-blue: #021E47;
+    --light-gold: #e6d7b8;
   }
   * {
     box-sizing: border-box;
@@ -24,8 +24,8 @@
   body{
     margin:0;
     font-family: "Playfair Display", "Times New Roman", serif;
-    background: var(--dior-dark); /* 改为纯色背景 */
-    color: var(--dior-cream);
+    background: var(--dark-blue);
+    color: var(--cream);
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
     display:flex;
@@ -70,8 +70,7 @@
     position: relative;
     width: 100%;
     height: 560px;
-    /* 信封改为和卡片一样的奶油色 */
-    background: linear-gradient(135deg, var(--dior-cream), #f0eade);
+    background: linear-gradient(135deg, var(--cream), #f0eade);
     border-radius: 12px;
     box-shadow: 
       0 30px 60px rgba(0,0,0,0.3),
@@ -82,10 +81,10 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border: 2px solid var(--dior-gold);
+    border: 2px solid var(--gold);
   }
 
-  /* Envelope flap - 改为与信封主体一致的颜色 */
+  /* Envelope flap */
   .envelope::before {
     content: '';
     position: absolute;
@@ -98,14 +97,14 @@
     transform-origin: top;
     transition: transform 0.8s ease;
     z-index: 2;
-    border-bottom: 2px solid var(--dior-gold);
+    border-bottom: 2px solid var(--gold);
   }
 
   .envelope.open::before {
     transform: rotateX(180deg);
   }
 
-  /* Envelope seal - 修复电脑居中问题 */
+  /* Envelope seal */
   .seal {
     position: absolute;
     top: 50%;
@@ -113,7 +112,7 @@
     transform: translate(-50%, -50%);
     width: 120px;
     height: 120px;
-    background: radial-gradient(circle, var(--dior-gold), #b08d5a);
+    background: radial-gradient(circle, var(--gold), #b08d5a);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -124,8 +123,7 @@
     z-index: 3;
     transition: all 0.4s ease;
     animation: sealGlow 3s ease-in-out infinite alternate;
-    border: 3px solid var(--dior-light-gold);
-    /* 移除所有可能影响定位的属性 */
+    border: 3px solid var(--light-gold);
     margin: 0 !important;
     padding: 0;
   }
@@ -146,10 +144,9 @@
   .seal::before {
     content: '✦';
     font-size: 48px;
-    color: var(--dior-cream);
+    color: var(--cream);
     font-weight: 300;
     filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
-    /* 确保图标本身居中 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -160,7 +157,7 @@
   .instruction {
     position: absolute;
     bottom: 50px;
-    color: #8a7866; /* 改为与卡片文字相似的颜色 */
+    color: #8a7866;
     font-size: 18px;
     text-align: center;
     text-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -180,7 +177,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, var(--dior-cream), #f0eade);
+    background: linear-gradient(135deg, var(--cream), #f0eade);
     border-radius: 12px;
     padding: 40px 50px;
     display: none;
@@ -225,7 +222,7 @@
     transform: translateY(25px);
   }
 
-  /* Dior-style Golden border */
+  /* Golden border */
   .message::before {
     content: '';
     position: absolute;
@@ -233,7 +230,7 @@
     left: -5px;
     right: -5px;
     bottom: -5px;
-    background: linear-gradient(135deg, var(--dior-gold), var(--dior-light-gold), #d4b98a, var(--dior-gold));
+    background: linear-gradient(135deg, var(--gold), var(--light-gold), #d4b98a, var(--gold));
     border-radius: 12px;
     z-index: -1;
     opacity: 0.9;
@@ -252,7 +249,7 @@
   }
 
   .message em {
-    color: var(--dior-burgundy);
+    color: var(--burgundy);
     font-style: italic;
     font-weight: 500;
     font-size: 20px;
@@ -299,13 +296,13 @@
   }
 
   .music-button{
-    background: linear-gradient(135deg, var(--dior-gold), #b08d5a);
+    background: linear-gradient(135deg, var(--gold), #b08d5a);
     border: none;
     padding: 15px 30px;
     border-radius: 12px;
     font-size:16px;
     cursor:pointer;
-    color: var(--dior-cream);
+    color: var(--cream);
     box-shadow: 0 6px 25px rgba(196, 168, 111, 0.5);
     transition: all 0.3s ease;
     font-family: "Playfair Display", serif;
@@ -323,7 +320,7 @@
   }
 
   .music-button.playing {
-    background: linear-gradient(135deg, #8b0000, var(--dior-burgundy));
+    background: linear-gradient(135deg, #8b0000, var(--burgundy));
     animation: pulse 2s infinite;
   }
 
@@ -336,14 +333,12 @@
   /* 桌面端特定修复 */
   @media (min-width: 769px) {
     .seal {
-      /* 确保在桌面上绝对居中 */
       left: 50% !important;
       transform: translate(-50%, -50%) !important;
       margin-left: 0 !important;
     }
     
     .envelope-container {
-      /* 桌面容器居中保障 */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -549,7 +544,7 @@ function drawSnowflakes() {
   const w = window.innerWidth;
   const h = window.innerHeight;
   
-  fullPageCtx.fillStyle = 'rgba(2, 30, 71, 0.05)'; // 使用新的背景颜色
+  fullPageCtx.fillStyle = 'rgba(2, 30, 71, 0.05)';
   fullPageCtx.fillRect(0, 0, w, h);
 
   for (let snowflake of snowflakes) {
